@@ -216,6 +216,49 @@
       display: block;
     }
 
+    /* Printable Ticket Card Styling */
+    .ticket-card {
+      display: none;
+      margin-top: 2rem;
+      background: #222;
+      border: 2px dashed var(--primary);
+      padding: 2rem;
+      border-radius: 8px;
+      text-align: left;
+    }
+
+    .ticket-card h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .ticket-card p {
+      margin-bottom: 0.5rem;
+      color: var(--text-light);
+    }
+
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #ticketCard, #ticketCard * {
+        visibility: visible;
+      }
+      #ticketCard {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: #fff !important;
+        color: #000 !important;
+        border: 2px solid #000 !important;
+      }
+      #ticketCard span {
+        color: #000 !important;
+      }
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .form-grid {
@@ -295,6 +338,18 @@
 
       <!-- Feedback Banner -->
       <div id="responseBanner" class="response-banner"></div>
+
+      <!-- Printable Ticket Card -->
+      <div id="ticketCard" class="ticket-card">
+        <h3>La Gusto - Confirmed Ticket</h3>
+        <p><strong>Ticket Number:</strong> <span id="t_ticketNum" style="color: var(--primary);"></span></p>
+        <p><strong>Guest Name:</strong> <span id="t_name"></span></p>
+        <p><strong>Phone:</strong> <span id="t_phone"></span></p>
+        <p><strong>Date & Time:</strong> <span id="t_datetime"></span></p>
+        <p style="margin-bottom: 1.5rem;"><strong>Party Size:</strong> <span id="t_party"></span> Guests</p>
+        <button onclick="window.print()" class="btn-nav" style="border: none; cursor: pointer; width: 100%; text-align: center;">🖨️ Print / Save as PDF</button>
+      </div>
+
     </div>
   </section>
 
@@ -405,14 +460,29 @@
       try {
         const res = await fetch(N8N_WEBHOOK_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true"
+          },
           body: JSON.stringify(bookingPayload)
         });
 
         const data = await res.json();
 
         if (data.success) {
-          showBanner(`🎉 Reservation Confirmed! Ticket Number: ${data.ticket.ticketNumber}`, "success");
+          showBanner(`🎉 Reservation Confirmed successfully!`, "success");
+          
+          // Populate the ticket fields dynamically
+          document.getElementById("t_ticketNum").innerText = data.ticket.ticketNumber;
+          document.getElementById("t_name").innerText = document.getElementById("guestName").value;
+          document.getElementById("t_phone").innerText = document.getElementById("phone").value;
+          document.getElementById("t_datetime").innerText = `${dateInput.value} at ${selectedTime}`;
+          document.getElementById("t_party").innerText = partyInput.value;
+          
+          // Show the ticket card and scroll to it
+          document.getElementById("ticketCard").style.display = "block";
+          document.getElementById("ticketCard").scrollIntoView({ behavior: 'smooth' });
+
           form.reset();
           dateInput.value = today;
           fetchAvailableSlots();
