@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>La Gusto | Fine Dining & Reservations</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #d4af37;
+      --bg-dark: #121212;
+      --bg-card: #1e1e1e;
+      --text-light: #f5f5f5;
+      --text-muted: #a0a0a0;
+      --error: #ff4d4d;
+      --success: #2ecc71;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.6;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 8%;
+      background: rgba(18, 18, 18, 0.95);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #2a2a2a;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 400;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    .btn-nav {
+      background: var(--primary);
+      color: #000;
+      padding: 0.6rem 1.4rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.3s;
+    }
+
+    .btn-nav:hover {
+      opacity: 0.9;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 80vh;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      color: var(--text-muted);
+    }
+
+    /* Booking Section */
+    .booking-section {
+      padding: 5rem 8%;
+      background: #181818;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      color: var(--primary);
+    }
+
+    .booking-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      padding: 2.5rem;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border: 1px solid #2a2a2a;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    input, select {
+      background: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      padding: 0.8rem;
+      border-radius: 4px;
+      color: var(--text-light);
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .btn-submit {
+      background: var(--primary);
+      color: #000;
+      border: none;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 1rem;
+      transition: background 0.3s;
+    }
+
+    .btn-submit:hover {
+      background: #c29d2b;
+    }
+
+    .btn-submit:disabled {
+      background: #555;
+      cursor: not-allowed;
+    }
+
+    /* Response Banner */
+    .response-banner {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      border-radius: 4px;
+      display: none;
+      font-size: 0.95rem;
+    }
+
+    .response-banner.error {
+      background: rgba(255, 77, 77, 0.15);
+      border: 1px solid var(--error);
+      color: var(--error);
+      display: block;
+    }
+
+    .response-banner.success {
+      background: rgba(46, 204, 113, 0.15);
+      border: 1px solid var(--success);
+      color: var(--success);
+      display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .form-group.full-width {
+        grid-column: span 1;
+      }
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <div class="logo">La Gusto</div>
+    <ul class="nav-links">
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#booking">Reservations</a></li>
+    </ul>
+    <a href="#booking" class="btn-nav">Book Table</a>
+  </nav>
+
+  <!-- Hero Banner -->
+  <header class="hero">
+    <h1>Exquisite Culinary Experience</h1>
+    <p>Reserve your table online and enjoy a memorable dining session with real-time availability.</p>
+    <a href="#booking" class="btn-nav" style="padding: 0.8rem 2rem; font-size: 1.1rem;">Reserve Now</a>
+  </header>
+
+  <!-- Reservation Section -->
+  <section class="booking-section" id="booking">
+    <div class="section-title">
+      <h2>Table Reservation</h2>
+      <p style="color: var(--text-muted);">Select your preferred date, party size, and time slot</p>
+    </div>
+
+    <div class="booking-container">
+      <form id="reservationForm">
+        <div class="form-grid">
+          
+          <div class="form-group">
+            <label for="date">Reservation Date</label>
+            <input type="date" id="date" required>
+          </div>
+
+          <div class="form-group">
+            <label for="partySize">Party Size (Guests)</label>
+            <input type="number" id="partySize" min="1" max="20" value="2" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="timeSlot">Select Time Slot</label>
+            <select id="timeSlot" required disabled>
+              <option value="">-- Choose Date & Party Size First --</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="guestName">Full Name</label>
+            <input type="text" id="guestName" placeholder="e.g. Umair Hassan" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" placeholder="03495890344" required>
+          </div>
+
+        </div>
+
+        <button type="submit" id="submitBtn" class="btn-submit">Confirm Reservation</button>
+      </form>
+
+      <!-- Feedback Banner -->
+      <div id="responseBanner" class="response-banner"></div>
+    </div>
+  </section>
+
+  <script>
+    // Set your active n8n Webhook Endpoint here
+    const N8N_WEBHOOK_URL = "http://localhost:5678/webhook/new-reservation";
+
+    const dateInput = document.getElementById("date");
+    const partyInput = document.getElementById("partySize");
+    const timeSelect = document.getElementById("timeSlot");
+    const form = document.getElementById("reservationForm");
+    const responseBanner = document.getElementById("responseBanner");
+    const submitBtn = document.getElementById("submitBtn");
+
+    // Automatically set minimum selectable date in the calendar to TODAY
+    const today = new Date().toISOString().split("T")[0];
+    dateInput.min = today;
+    dateInput.value = today;
+
+    // Fetch available slots on date or party size change
+    async function fetchAvailableSlots() {
+      const selectedDate = dateInput.value;
+      const partySize = partyInput.value;
+
+      if (!selectedDate) return;
+
+      timeSelect.innerHTML = `<option value="">Loading slots...</option>`;
+      timeSelect.disabled = true;
+      hideBanner();
+
+      try {
+        const res = await fetch(N8N_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "check_slots",
+            date: selectedDate,
+            partySize: parseInt(partySize, 10)
+          })
+        });
+
+        const data = await res.json();
+
+        if (data.error) {
+          showBanner(data.message, "error");
+          timeSelect.innerHTML = `<option value="">No slots available</option>`;
+          return;
+        }
+
+        // Render dynamic time slots from n8n
+        timeSelect.innerHTML = `<option value="">-- Select Time Slot --</option>`;
+        if (data.timetable && data.timetable.length > 0) {
+          data.timetable.forEach(slot => {
+            const option = document.createElement("option");
+            option.value = slot.time;
+
+            if (slot.canFitParty) {
+              option.textContent = `${slot.time} (${slot.availableSeats} seats left)`;
+            } else {
+              option.textContent = `${slot.time} - Fully Booked / Insufficient Seats`;
+              option.disabled = true;
+            }
+            timeSelect.appendChild(option);
+          });
+          timeSelect.disabled = false;
+        } else {
+          timeSelect.innerHTML = `<option value="">No available slots for this date</option>`;
+        }
+
+      } catch (err) {
+        showBanner("Failed to fetch available time slots. Check your connection.", "error");
+      }
+    }
+
+    // Trigger slot refresh when date or party size changes
+    dateInput.addEventListener("change", fetchAvailableSlots);
+    partyInput.addEventListener("change", fetchAvailableSlots);
+
+    // Initial load on page open
+    fetchAvailableSlots();
+
+    // Handle Form Submission
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hideBanner();
+
+      const selectedTime = timeSelect.value;
+      if (!selectedTime) {
+        showBanner("Please select a valid future time slot.", "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Processing Booking...";
+
+      const bookingPayload = {
+        action: "book_table",
+        guestName: document.getElementById("guestName").value,
+        phone: document.getElementById("phone").value,
+        partySize: parseInt(partyInput.value, 10),
+        date: dateInput.value,
+        time: selectedTime
+      };
+
+      try {
+        const res = await fetch(N8N_WEBHOOK_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(bookingPayload)
+        });
+
+        const data = await res.json();
+
+        if (data.success) {
+          showBanner(`🎉 Reservation Confirmed! Ticket Number: ${data.ticket.ticketNumber}`, "success");
+          form.reset();
+          dateInput.value = today;
+          fetchAvailableSlots();
+        } else {
+          showBanner(data.message || "Booking failed. Please select another slot.", "error");
+        }
+      } catch (err) {
+        showBanner("Network error. Unable to complete reservation.", "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Confirm Reservation";
+      }
+    });
+
+    function showBanner(message, type) {
+      responseBanner.innerText = message;
+      responseBanner.className = `response-banner ${type}`;
+    }
+
+    function hideBanner() {
+      responseBanner.className = "response-banner";
+      responseBanner.innerText = "";
+    }
+  </script>
+</body>
+</html>
