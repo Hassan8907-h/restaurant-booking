@@ -20,10 +20,9 @@
       line-height: 1.6;
     }
 
-    /* Navigation */
+    /* Navigation - Keep on a single line */
     nav {
       display: flex;
-      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       padding: 15px 5%;
@@ -32,10 +31,11 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      white-space: nowrap; /* Prevents items from breaking into multiple lines */
     }
 
     nav .logo {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: bold;
       color: #d4af37;
       text-transform: uppercase;
@@ -45,12 +45,15 @@
     nav ul {
       display: flex;
       list-style: none;
-      gap: 20px;
+      gap: 15px;
+      align-items: center;
+      margin: 0;
     }
 
     nav ul li a {
       color: #f5f5f5;
       text-decoration: none;
+      font-size: 0.95rem;
       transition: color 0.3s;
     }
 
@@ -61,10 +64,11 @@
     .book-btn {
       background-color: #d4af37;
       color: #121212;
-      padding: 8px 16px;
+      padding: 6px 12px;
       border-radius: 4px;
       text-decoration: none;
       font-weight: bold;
+      font-size: 0.9rem;
       transition: background-color 0.3s;
     }
 
@@ -178,8 +182,9 @@
       background-color: #c19b2e;
     }
 
-    /* Receipt Section Simulation */
+    /* Receipt Card - Hidden by Default */
     .receipt-card {
+      display: none; 
       margin-top: 40px;
       background-color: #1e1e1e;
       border: 1px dashed #d4af37;
@@ -211,25 +216,24 @@
       padding-bottom: 6px;
     }
 
-    /* Responsive adjustments for mobile screens */
-    @media (max-width: 768px) {
+    /* Extra adjustments for very small screens so the single-line header shrinks cleanly */
+    @media (max-width: 480px) {
       nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
+        padding: 10px 10px;
       }
-
+      nav .logo {
+        font-size: 1.1rem;
+      }
       nav ul {
-        flex-direction: column;
         gap: 8px;
-        width: 100%;
       }
-
+      nav ul li a {
+        font-size: 0.8rem;
+      }
       .book-btn {
-        width: 100%;
-        text-align: center;
+        padding: 5px 8px;
+        font-size: 0.75rem;
       }
-
       header h1 {
         font-size: 2rem;
       }
@@ -242,11 +246,11 @@
 </head>
 <body>
 
-  <!-- Navigation Bar -->
+  <!-- Navigation Bar (Forced on a single line) -->
   <nav>
     <div class="logo">La Gusto</div>
     <ul>
-      <li><a href="#about">About Us</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="#menu">Menu</a></li>
       <li><a href="#booking">Reservations</a></li>
     </ul>
@@ -303,8 +307,8 @@
         <button type="submit" class="confirm-btn">Confirm Reservation</button>
       </form>
 
-      <!-- Receipt Box Example -->
-      <div class="receipt-card">
+      <!-- Receipt Box (Hidden until form submission) -->
+      <div class="receipt-card" id="receiptCard">
         <div class="receipt-header">
           <h3>LA GUSTO</h3>
           <p>Verified Reservation Receipt</p>
@@ -312,28 +316,50 @@
         <div class="receipt-details">
           <div class="receipt-row">
             <span>Ticket ID:</span>
-            <span>#LG-8904</span>
+            <span id="receiptTicket">#LG-0000</span>
           </div>
           <div class="receipt-row">
             <span>Guest:</span>
-            <span>Umair Hassan</span>
+            <span id="receiptName">-</span>
           </div>
           <div class="receipt-row">
             <span>Date:</span>
-            <span>07/31/2026</span>
+            <span id="receiptDate">-</span>
           </div>
           <div class="receipt-row">
             <span>Time Slot:</span>
-            <span>07:00 PM</span>
+            <span id="receiptTime">-</span>
           </div>
           <div class="receipt-row">
             <span>Party Size:</span>
-            <span>2 Guests</span>
+            <span id="receiptParty">-</span>
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <script>
+    document.getElementById('reservationForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('fullName').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('timeSlot').value;
+      const party = document.getElementById('partySize').value;
+
+      const randomId = '#LG-' + Math.floor(1000 + Math.random() * 9000);
+
+      document.getElementById('receiptTicket').innerText = randomId;
+      document.getElementById('receiptName').innerText = name;
+      document.getElementById('receiptDate').innerText = date;
+      document.getElementById('receiptTime').innerText = time;
+      document.getElementById('receiptParty').innerText = party + ' Guests';
+
+      document.getElementById('receiptCard').style.display = 'block';
+      document.getElementById('receiptCard').scrollIntoView({ behavior: 'smooth' });
+    });
+  </script>
 
 </body>
 </html>
