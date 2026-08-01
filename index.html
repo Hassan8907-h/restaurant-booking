@@ -97,18 +97,34 @@
     }
     @media print {
       body * {
-        visibility: hidden;
+        display: none !important;
       }
       #ticketCard, #ticketCard * {
-        visibility: visible;
+        display: block !important;
+        visibility: visible !important;
       }
       #ticketCard {
         position: absolute;
         left: 0;
         top: 0;
         width: 100%;
+        margin: 0;
+        padding: 10px;
         border: none !important;
         box-shadow: none !important;
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .ticket-row {
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+      .ticket-header, .ticket-body, .ticket-footer {
+        display: block !important;
+      }
+      #qrcode {
+        display: flex !important;
+        justify-content: center !important;
       }
     }
   </style>
