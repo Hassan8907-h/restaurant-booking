@@ -42,6 +42,7 @@
       top: 0;
       z-index: 100;
       border-bottom: 1px solid #2a2a2a;
+      white-space: nowrap;
     }
 
     .logo {
@@ -321,8 +322,22 @@
       }
     }
 
-    /* Responsive */
+    /* Responsive Mobile/Tablet Fixes keeping laptop desktop style intact */
     @media (max-width: 768px) {
+      nav {
+        padding: 1rem 4%;
+      }
+      .logo {
+        font-size: 1.3rem;
+      }
+      .nav-links {
+        gap: 1rem;
+        font-size: 0.85rem;
+      }
+      .btn-nav {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+      }
       .form-grid {
         grid-template-columns: 1fr;
       }
@@ -330,7 +345,16 @@
         grid-column: span 1;
       }
       .hero h1 {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+      }
+      .hero p {
+        font-size: 1rem;
+      }
+      .booking-section {
+        padding: 3rem 4%;
+      }
+      .booking-container {
+        padding: 1.5rem;
       }
     }
   </style>
@@ -541,7 +565,7 @@
         return;
       }
 
-      submitBtn.disabled = codeButtonState = true;
+      submitBtn.disabled = true;
       submitBtn.innerText = "Processing Booking...";
 
       const guestNameVal = document.getElementById("guestName").value;
