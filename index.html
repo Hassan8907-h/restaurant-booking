@@ -170,12 +170,13 @@
       </div>
       <div class="ticket-body">
         <div class="ticket-row"><span>Ticket ID:</span><span id="t_ticketNum" style="font-weight: bold; color: var(--primary);"></span></div>
+        <div class="ticket-row"><span>Table Number:</span><span id="t_tableId" style="font-weight: bold; color: #d4af37;"></span></div>
+        <div class="ticket-row"><span>Booking Type:</span><span id="t_bookingtype" style="font-weight: bold; color: #d4af37;"></span></div>       
         <div class="ticket-row"><span>Guest:</span><span id="t_name"></span></div>
         <div class="ticket-row"><span>Phone:</span><span id="t_phone"></span></div>
         <div class="ticket-row"><span>Date:</span><span id="t_date"></span></div>
         <div class="ticket-row"><span>Time Slot:</span><span id="t_time"></span></div>
         <div class="ticket-row"><span>Party Size:</span><span id="t_party"></span> Guests</div>
-        <div class="ticket-row"><span>Table Assigned:</span><span id="t_tableId" style="font-weight: bold; color: #d4af37;"></span></div>
       </div>
       <div class="ticket-footer">
         <div id="qrcode"></div>
@@ -280,10 +281,11 @@
           document.getElementById("t_time").innerText = selectedTime;
           document.getElementById("t_party").innerText = partyInput.value;
           document.getElementById("t_tableId").innerText = data.ticket.assignedTable;
+          document.getElementById("t_bookingtype").innerText = data.ticket.bookingType;
 
           document.getElementById("qrcode").innerHTML = "";
           new QRCode(document.getElementById("qrcode"), {
-            text: `Ticket: ${data.ticket.ticketNumber} | Table: ${data.ticket.tableId}`,
+            text: `Ticket: ${data.ticket.ticketNumber} | Table: ${data.ticket.assignedTable}`,
             width: 100, height: 100
           });
 
