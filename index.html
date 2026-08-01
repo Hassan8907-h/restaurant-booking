@@ -147,6 +147,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
+      width: 100%;
     }
 
     .form-group.full-width {
@@ -159,6 +160,7 @@
     }
 
     input, select {
+      width: 100%;
       background: #2a2a2a;
       border: 1px solid #3a3a3a;
       padding: 0.8rem;
@@ -322,10 +324,10 @@
       }
     }
 
-    /* Enhanced Mobile/Tablet Fixes: Perfectly aligned header & clean container spacing */
+    /* Mobile responsiveness: Full width inputs, equal sizing, clean padding */
     @media (max-width: 768px) {
       nav {
-        padding: 0.8rem 3%;
+        padding: 0.8rem 4%;
         gap: 0.5rem;
       }
       .logo {
@@ -341,9 +343,14 @@
       }
       .form-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
       }
-      .form-group.full-width {
+      .form-group, .form-group.full-width {
         grid-column: span 1;
+        width: 100%;
+      }
+      input, select {
+        width: 100%;
       }
       .hero {
         height: 60vh;
@@ -357,10 +364,11 @@
         font-size: 0.9rem;
       }
       .booking-section {
-        padding: 2.5rem 3%;
+        padding: 2.5rem 4%;
       }
       .booking-container {
         padding: 1.25rem;
+        width: 100%;
       }
       .section-title h2 {
         font-size: 1.8rem;
@@ -591,7 +599,7 @@
         time: selectedTime
       };
 
-      try {
+    try {
         const res = await fetch(N8N_WEBHOOK_URL, {
           method: "POST",
           headers: { 
