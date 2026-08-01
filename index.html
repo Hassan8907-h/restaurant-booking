@@ -279,7 +279,7 @@
           document.getElementById("t_date").innerText = dateInput.value;
           document.getElementById("t_time").innerText = selectedTime;
           document.getElementById("t_party").innerText = partyInput.value;
-          document.getElementById("t_tableId").innerText = data.ticket.tableId;
+          document.getElementById("t_tableId").innerText = data.ticket.assignedTable;
 
           document.getElementById("qrcode").innerHTML = "";
           new QRCode(document.getElementById("qrcode"), {
