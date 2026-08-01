@@ -95,37 +95,37 @@
       .form-group.full-width { grid-column: span 1; }
       nav { padding: 0.8rem 4%; }
     }
-    @media print {
-      body * {
-        display: none !important;
-      }
-      #ticketCard, #ticketCard * {
-        display: block !important;
-        visibility: visible !important;
-      }
-      #ticketCard {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        margin: 0;
-        padding: 10px;
-        border: none !important;
-        box-shadow: none !important;
-        background: #fff !important;
-        color: #000 !important;
-      }
-      .ticket-row {
-        display: flex !important;
-        justify-content: space-between !important;
-      }
-      .ticket-header, .ticket-body, .ticket-footer {
-        display: block !important;
-      }
-      #qrcode {
-        display: flex !important;
-        justify-content: center !important;
-      }
+
+    /* Clean Print Styles */
+    body.printing * {
+      display: none !important;
+    }
+    body.printing #ticketCard, 
+    body.printing #ticketCard * {
+      display: block !important;
+    }
+    body.printing #ticketCard {
+      position: fixed;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: 380px;
+      border: 2px dashed #111 !important;
+      background: #fff !important;
+      color: #111 !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+    }
+    body.printing .ticket-row {
+      display: flex !important;
+      justify-content: space-between !important;
+    }
+    body.printing #qrcode {
+      display: flex !important;
+      justify-content: center !important;
+    }
+    body.printing .no-print {
+      display: none !important;
     }
   </style>
 </head>
@@ -215,13 +215,13 @@
         <p style="font-size: 0.65rem; color: #555;">Scan to verify booking</p>
       </div>
       <div style="margin-top: 1rem; text-align: center;" class="no-print">
-        <button onclick="window.print()" class="btn-nav" style="width: 100%; border: none; cursor: pointer; padding: 0.6rem;">🖨️ Print Receipt</button>
+        <button onclick="triggerPrint()" class="btn-nav" style="width: 100%; border: none; cursor: pointer; padding: 0.6rem;">🖨️ Print Receipt</button>
       </div>
     </div>
   </section>
 
   <script>
-    const N8N_WEBHOOK_URL = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/new-reservation"; // Replace with your ngrok/n8n webhook URL
+    const N8N_WEBHOOK_URL = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/new-reservation";
 
     const dateInput = document.getElementById("date");
     const partyInput = document.getElementById("partySize");
@@ -327,7 +327,6 @@
           dateInput.value = today;
           fetchAvailableSlots();
         } else {
-          // Properly displays backend custom error messages (like not enough shared space) instead of falling back to a network error
           const errorMessage = data.message || "Booking failed. Slot or table already taken.";
           showBanner(errorMessage, "error");
         }
@@ -342,6 +341,12 @@
     function showBanner(msg, type) {
       responseBanner.innerText = msg;
       responseBanner.className = `response-banner ${type}`;
+    }
+
+    function triggerPrint() {
+      document.body.classList.add('printing');
+      window.print();
+      document.body.classList.remove('printing');
     }
   </script>
 </body>
