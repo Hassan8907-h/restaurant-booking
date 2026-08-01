@@ -322,21 +322,22 @@
       }
     }
 
-    /* Responsive Mobile/Tablet Fixes keeping laptop desktop style intact */
+    /* Enhanced Mobile/Tablet Fixes: Perfectly aligned header & clean container spacing */
     @media (max-width: 768px) {
       nav {
-        padding: 1rem 4%;
+        padding: 0.8rem 3%;
+        gap: 0.5rem;
       }
       .logo {
-        font-size: 1.3rem;
+        font-size: 1.15rem;
       }
       .nav-links {
-        gap: 1rem;
-        font-size: 0.85rem;
+        gap: 0.8rem;
+        font-size: 0.75rem;
       }
       .btn-nav {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.85rem;
+        padding: 0.35rem 0.65rem;
+        font-size: 0.75rem;
       }
       .form-grid {
         grid-template-columns: 1fr;
@@ -344,17 +345,25 @@
       .form-group.full-width {
         grid-column: span 1;
       }
+      .hero {
+        height: 60vh;
+        padding: 0 1.5rem;
+      }
       .hero h1 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
+        line-height: 1.2;
       }
       .hero p {
-        font-size: 1rem;
+        font-size: 0.9rem;
       }
       .booking-section {
-        padding: 3rem 4%;
+        padding: 2.5rem 3%;
       }
       .booking-container {
-        padding: 1.5rem;
+        padding: 1.25rem;
+      }
+      .section-title h2 {
+        font-size: 1.8rem;
       }
     }
   </style>
