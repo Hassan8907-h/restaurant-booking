@@ -20,22 +20,21 @@
       line-height: 1.6;
     }
 
-    /* Navigation - Keep on a single line */
+    /* Navigation - Original Desktop Design */
     nav {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px 5%;
+      padding: 20px 50px;
       background-color: #1a1a1a;
       border-bottom: 1px solid #333;
       position: sticky;
       top: 0;
       z-index: 1000;
-      white-space: nowrap; /* Prevents items from breaking into multiple lines */
     }
 
-    nav .logo {
-      font-size: 1.4rem;
+    nav div:first-child {
+      font-size: 1.8rem;
       font-weight: bold;
       color: #d4af37;
       text-transform: uppercase;
@@ -45,15 +44,13 @@
     nav ul {
       display: flex;
       list-style: none;
-      gap: 15px;
-      align-items: center;
-      margin: 0;
+      gap: 30px;
     }
 
     nav ul li a {
       color: #f5f5f5;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 1rem;
       transition: color 0.3s;
     }
 
@@ -61,46 +58,45 @@
       color: #d4af37;
     }
 
-    .book-btn {
+    nav > a {
       background-color: #d4af37;
       color: #121212;
-      padding: 6px 12px;
+      padding: 10px 20px;
       border-radius: 4px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 0.9rem;
       transition: background-color 0.3s;
     }
 
-    .book-btn:hover {
+    nav > a:hover {
       background-color: #c19b2e;
     }
 
     /* Header / Hero Section */
     header {
       text-align: center;
-      padding: 80px 20px;
+      padding: 100px 20px;
       background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover;
     }
 
     header h1 {
-      font-size: 2.5rem;
+      font-size: 3rem;
       color: #d4af37;
       margin-bottom: 15px;
     }
 
     header p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       max-width: 600px;
-      margin: 0 auto 25px auto;
+      margin: 0 auto 30px auto;
       color: #ccc;
     }
 
-    .hero-reserve-btn {
+    header a {
       display: inline-block;
       background-color: #d4af37;
       color: #121212;
-      padding: 12px 24px;
+      padding: 14px 28px;
       border-radius: 4px;
       text-decoration: none;
       font-weight: bold;
@@ -108,50 +104,50 @@
 
     /* Main Booking Section */
     section {
-      padding: 50px 20px;
-      max-width: 800px;
+      padding: 60px 20px;
+      max-width: 700px;
       margin: 0 auto;
     }
 
-    .section-header {
+    .section-title-box {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 40px;
     }
 
-    .section-header h2 {
-      font-size: 2rem;
+    .section-title-box h2 {
+      font-size: 2.2rem;
       color: #d4af37;
       margin-bottom: 10px;
     }
 
-    .section-header p {
+    .section-title-box p {
       color: #aaa;
     }
 
     /* Booking Form Container */
     .booking-container {
       background-color: #1a1a1a;
-      padding: 30px;
+      padding: 40px;
       border-radius: 8px;
       border: 1px solid #333;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
     }
 
     .form-group {
-      margin-bottom: 20px;
+      margin-bottom: 25px;
     }
 
     .form-group label {
       display: block;
       margin-bottom: 8px;
       color: #ccc;
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
 
     .form-group input, 
     .form-group select {
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       background-color: #2a2a2a;
       border: 1px solid #444;
       border-radius: 4px;
@@ -169,10 +165,10 @@
       width: 100%;
       background-color: #d4af37;
       color: #121212;
-      padding: 14px;
+      padding: 16px;
       border: none;
       border-radius: 4px;
-      font-size: 1rem;
+      font-size: 1.1rem;
       font-weight: bold;
       cursor: pointer;
       transition: background-color 0.3s;
@@ -188,24 +184,25 @@
       margin-top: 40px;
       background-color: #1e1e1e;
       border: 1px dashed #d4af37;
-      padding: 20px;
+      padding: 25px;
       border-radius: 8px;
     }
 
     .receipt-header {
       text-align: center;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     .receipt-header h3 {
       color: #d4af37;
+      font-size: 1.5rem;
     }
 
     .receipt-details {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      font-size: 0.95rem;
+      gap: 12px;
+      font-size: 1rem;
       color: #ddd;
     }
 
@@ -213,60 +210,98 @@
       display: flex;
       justify-content: space-between;
       border-bottom: 1px solid #2a2a2a;
-      padding-bottom: 6px;
+      padding-bottom: 8px;
     }
 
-    /* Extra adjustments for very small screens so the single-line header shrinks cleanly */
-    @media (max-width: 480px) {
-      nav {
-        padding: 10px 10px;
+    .print-btn {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #333;
+      color: #d4af37;
+      border: 1px solid #d4af37;
+      padding: 12px;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .print-btn:hover {
+      background-color: #d4af37;
+      color: #121212;
+    }
+
+    /* Print styling */
+    @media print {
+      body * {
+        visibility: hidden;
       }
-      nav .logo {
-        font-size: 1.1rem;
+      #receiptCard, #receiptCard * {
+        visibility: visible;
+      }
+      #receiptCard {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background-color: #fff !important;
+        color: #000 !important;
+        border: 2px solid #000 !important;
+      }
+      #receiptCard h3, #receiptCard span {
+        color: #000 !important;
+      }
+      .print-btn {
+        display: none;
+      }
+    }
+
+    /* Responsive adjustments ONLY for mobile screens */
+    @media (max-width: 768px) {
+      nav {
+        padding: 15px 20px;
+      }
+      nav div:first-child {
+        font-size: 1.3rem;
       }
       nav ul {
-        gap: 8px;
-      }
-      nav ul li a {
-        font-size: 0.8rem;
-      }
-      .book-btn {
-        padding: 5px 8px;
-        font-size: 0.75rem;
+        display: none; /* Hide menu links on small mobile screens to keep layout clean */
       }
       header h1 {
         font-size: 2rem;
       }
-
+      header p {
+        font-size: 1rem;
+      }
       .booking-container {
-        padding: 15px;
+        padding: 20px;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navigation Bar (Forced on a single line) -->
+  <!-- Navigation Bar -->
   <nav>
-    <div class="logo">La Gusto</div>
+    <div>La Gusto</div>
     <ul>
-      <li><a href="#about">About</a></li>
+      <li><a href="#about">About Us</a></li>
       <li><a href="#menu">Menu</a></li>
       <li><a href="#booking">Reservations</a></li>
     </ul>
-    <a href="#booking" class="book-btn">Book Table</a>
+    <a href="#booking">Book Table</a>
   </nav>
 
   <!-- Hero Section -->
   <header>
     <h1>Exquisite Culinary Experience</h1>
     <p>Reserve your table online and enjoy a memorable dining session with real-time availability.</p>
-    <a href="#booking" class="hero-reserve-btn">Reserve Now</a>
+    <a href="#booking">Reserve Now</a>
   </header>
 
   <!-- Booking Section -->
   <section id="booking">
-    <div class="section-header">
+    <div class="section-title-box">
       <h2>Table Reservation</h2>
       <p>Select your preferred date, party size, and time slot</p>
     </div>
@@ -286,11 +321,7 @@
         <div class="form-group">
           <label for="timeSlot">Select Time Slot</label>
           <select id="timeSlot" required>
-            <option value="">-- Choose Time Slot --</option>
-            <option value="18:00">06:00 PM</option>
-            <option value="19:00">07:00 PM</option>
-            <option value="20:00">08:00 PM</option>
-            <option value="21:00">09:00 PM</option>
+            <option value="">-- Select Date First --</option>
           </select>
         </div>
 
@@ -307,7 +338,7 @@
         <button type="submit" class="confirm-btn">Confirm Reservation</button>
       </form>
 
-      <!-- Receipt Box (Hidden until form submission) -->
+      <!-- Receipt Box -->
       <div class="receipt-card" id="receiptCard">
         <div class="receipt-header">
           <h3>LA GUSTO</h3>
@@ -315,8 +346,12 @@
         </div>
         <div class="receipt-details">
           <div class="receipt-row">
+            <span>Table ID (n8n):</span>
+            <span id="receiptTableId">-</span>
+          </div>
+          <div class="receipt-row">
             <span>Ticket ID:</span>
-            <span id="receiptTicket">#LG-0000</span>
+            <span id="receiptTicket">-</span>
           </div>
           <div class="receipt-row">
             <span>Guest:</span>
@@ -335,29 +370,110 @@
             <span id="receiptParty">-</span>
           </div>
         </div>
+        <button class="print-btn" onclick="window.print()">Print / Save Receipt</button>
       </div>
     </div>
   </section>
 
   <script>
-    document.getElementById('reservationForm').addEventListener('submit', function(e) {
+    const n8nBaseUrl = 'https://underrate-ranting-unbutton.ngrok-free.dev/webhook/new-reservation'; // Replace with your actual n8n webhook URL
+
+    // 1. Fetch available slots from n8n when date or party size changes
+    document.getElementById('date').addEventListener('change', fetchAvailableSlots);
+    document.getElementById('partySize').addEventListener('change', fetchAvailableSlots);
+
+    async function fetchAvailableSlots() {
+      const date = document.getElementById('date').value;
+      const partySize = document.getElementById('partySize').value;
+      const timeSlotSelect = document.getElementById('timeSlot');
+
+      if (!date) return;
+
+      timeSlotSelect.innerHTML = '<option value="">Loading slots from n8n...</option>';
+
+      try {
+        // Sends a GET request to your n8n webhook with parameters
+        const response = await fetch(`${n8nBaseUrl}?date=${date}&partySize=${partySize}`);
+        const slots = await response.json(); // Expected format from n8n: [{time: "18:00", label: "06:00 PM"}, ...]
+
+        timeSlotSelect.innerHTML = '<option value="">-- Choose Time Slot --</option>';
+        
+        if (Array.isArray(slots) && slots.length > 0) {
+          slots.forEach(slot => {
+            const opt = document.createElement('option');
+            opt.value = slot.time;
+            opt.textContent = slot.label || slot.time;
+            timeSlotSelect.appendChild(opt);
+          });
+        } else {
+          // Fallback if n8n returns empty or standard list
+          const defaultSlots = [
+            {time: "18:00", label: "06:00 PM"},
+            {time: "19:00", label: "07:00 PM"},
+            {time: "20:00", label: "08:00 PM"},
+            {time: "21:00", label: "09:00 PM"}
+          ];
+          defaultSlots.forEach(slot => {
+            const opt = document.createElement('option');
+            opt.value = slot.time;
+            opt.textContent = slot.label;
+            timeSlotSelect.appendChild(opt);
+          });
+        }
+      } catch (error) {
+        // Fallback slots if n8n connection is offline during testing
+        timeSlotSelect.innerHTML = `
+          <option value="">-- Choose Time Slot --</option>
+          <option value="18:00">06:00 PM</option>
+          <option value="19:00">07:00 PM</option>
+          <option value="20:00">08:00 PM</option>
+          <option value="21:00">09:00 PM</option>
+        `;
+      }
+    }
+
+    // 2. Submit reservation data to n8n and get table ID (e.g., res-001) back
+    document.getElementById('reservationForm').addEventListener('submit', async function(e) {
       e.preventDefault();
 
-      const name = document.getElementById('fullName').value;
-      const date = document.getElementById('date').value;
-      const time = document.getElementById('timeSlot').value;
-      const party = document.getElementById('partySize').value;
+      const formData = {
+        fullName: document.getElementById('fullName').value,
+        phone: document.getElementById('phone').value,
+        date: document.getElementById('date').value,
+        timeSlot: document.getElementById('timeSlot').value,
+        partySize: document.getElementById('partySize').value
+      };
 
-      const randomId = '#LG-' + Math.floor(1000 + Math.random() * 9000);
+      const submitBtn = document.querySelector('.confirm-btn');
+      submitBtn.textContent = 'Processing with n8n...';
+      submitBtn.disabled = true;
 
-      document.getElementById('receiptTicket').innerText = randomId;
-      document.getElementById('receiptName').innerText = name;
-      document.getElementById('receiptDate').innerText = date;
-      document.getElementById('receiptTime').innerText = time;
-      document.getElementById('receiptParty').innerText = party + ' Guests';
+      try {
+        const response = await fetch(n8nBaseUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json(); // Expected from n8n: { tableId: "res-001", ticketId: "#LG-8904" }
 
-      document.getElementById('receiptCard').style.display = 'block';
-      document.getElementById('receiptCard').scrollIntoView({ behavior: 'smooth' });
+        // Populate receipt with n8n database values
+        document.getElementById('receiptTableId').innerText = result.tableId || 'res-001';
+        document.getElementById('receiptTicket').innerText = result.ticketId || '#LG-' + Math.floor(1000 + Math.random() * 9000);
+        document.getElementById('receiptName').innerText = formData.fullName;
+        document.getElementById('receiptDate').innerText = formData.date;
+        document.getElementById('receiptTime').innerText = formData.timeSlot;
+        document.getElementById('receiptParty').innerText = formData.partySize + ' Guests';
+
+        // Display receipt
+        document.getElementById('receiptCard').style.display = 'block';
+        document.getElementById('receiptCard').scrollIntoView({ behavior: 'smooth' });
+
+      } catch (error) {
+        alert('Could not complete reservation via n8n webhook.');
+      } finally {
+        submitBtn.textContent = 'Confirm Reservation';
+        submitBtn.disabled = false;
+      }
     });
   </script>
 
