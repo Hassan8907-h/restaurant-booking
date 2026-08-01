@@ -82,6 +82,9 @@
       display: none; max-width: 380px; margin: 2rem auto 0 auto;
       background: #fff; color: #111; border: 2px dashed #111; padding: 1.5rem; border-radius: 6px; font-family: 'Courier New', Courier, monospace;
     }
+    .ticket-card.show {
+      display: block;
+    }
     .ticket-header { text-align: center; border-bottom: 2px dashed #111; padding-bottom: 0.75rem; margin-bottom: 1rem; }
     .ticket-header h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #111; margin-bottom: 0.2rem; }
     .ticket-body { font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.4rem; }
@@ -96,36 +99,36 @@
       nav { padding: 0.8rem 4%; }
     }
 
-    /* Clean Print Styles */
-    body.printing * {
-      display: none !important;
-    }
-    body.printing #ticketCard, 
-    body.printing #ticketCard * {
-      display: block !important;
-    }
-    body.printing #ticketCard {
-      position: fixed;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-      width: 380px;
-      border: 2px dashed #111 !important;
-      background: #fff !important;
-      color: #111 !important;
-      box-shadow: none !important;
-      margin: 0 !important;
-    }
-    body.printing .ticket-row {
-      display: flex !important;
-      justify-content: space-between !important;
-    }
-    body.printing #qrcode {
-      display: flex !important;
-      justify-content: center !important;
-    }
-    body.printing .no-print {
-      display: none !important;
+    /* Print Styles */
+    @media print {
+      body * {
+        display: none !important;
+      }
+      #ticketCard, #ticketCard * {
+        display: block !important;
+      }
+      #ticketCard {
+        position: absolute !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: #fff !important;
+        color: #000 !important;
+      }
+      .ticket-row {
+        display: flex !important;
+        justify-content: space-between !important;
+      }
+      #qrcode {
+        display: flex !important;
+        justify-content: center !important;
+      }
+      .no-print {
+        display: none !important;
+      }
     }
   </style>
 </head>
@@ -215,7 +218,7 @@
         <p style="font-size: 0.65rem; color: #555;">Scan to verify booking</p>
       </div>
       <div style="margin-top: 1rem; text-align: center;" class="no-print">
-        <button onclick="triggerPrint()" class="btn-nav" style="width: 100%; border: none; cursor: pointer; padding: 0.6rem;">🖨️ Print Receipt</button>
+        <button onclick="window.print()" class="btn-nav" style="width: 100%; border: none; cursor: pointer; padding: 0.6rem;">🖨️ Print Receipt</button>
       </div>
     </div>
   </section>
@@ -321,7 +324,7 @@
             width: 100, height: 100
           });
 
-          document.getElementById("ticketCard").style.display = "block";
+          document.getElementById("ticketCard").classList.add("show");
           document.getElementById("ticketCard").scrollIntoView({ behavior: 'smooth' });
           form.reset();
           dateInput.value = today;
@@ -341,12 +344,6 @@
     function showBanner(msg, type) {
       responseBanner.innerText = msg;
       responseBanner.className = `response-banner ${type}`;
-    }
-
-    function triggerPrint() {
-      document.body.classList.add('printing');
-      window.print();
-      document.body.classList.remove('printing');
     }
   </script>
 </body>
