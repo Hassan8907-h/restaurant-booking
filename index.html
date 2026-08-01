@@ -99,13 +99,14 @@
       nav { padding: 0.8rem 4%; }
     }
 
-    /* Print Styles */
+    /* Print Styles — FIXED: use visibility instead of display so the
+       ticket card can be un-hidden even though its ancestors are hidden */
     @media print {
       body * {
-        display: none !important;
+        visibility: hidden !important;
       }
       #ticketCard, #ticketCard * {
-        display: block !important;
+        visibility: visible !important;
       }
       #ticketCard {
         position: absolute !important;
