@@ -189,7 +189,7 @@
   </section>
 
   <script>
-    const N8N_WEBHOOK_URL = " https://underrate-ranting-unbutton.ngrok-free.dev/webhook/new-reservation"; // Replace with your ngrok/n8n webhook URL
+    const N8N_WEBHOOK_URL = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/new-reservation"; // Replace with your ngrok/n8n webhook URL
 
     const dateInput = document.getElementById("date");
     const partyInput = document.getElementById("partySize");
@@ -295,7 +295,9 @@
           dateInput.value = today;
           fetchAvailableSlots();
         } else {
-          showBanner(data.message || "Booking failed. Slot or table already taken.", "error");
+          // Properly displays backend custom error messages (like not enough shared space) instead of falling back to a network error
+          const errorMessage = data.message || "Booking failed. Slot or table already taken.";
+          showBanner(errorMessage, "error");
         }
       } catch (err) {
         showBanner("Network error during booking confirmation.", "error");
