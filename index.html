@@ -99,8 +99,7 @@
       nav { padding: 0.8rem 4%; }
     }
 
-    /* Print Styles — FIXED: use visibility instead of display so the
-       ticket card can be un-hidden even though its ancestors are hidden */
+    /* Print Styles */
     @media print {
       body * {
         visibility: hidden !important;
@@ -190,6 +189,12 @@
             <label for="phone">Phone Number</label>
             <input type="tel" id="phone" placeholder="Enter Phone Number" required>
           </div>
+
+          <!-- Added Email Field in Contact Area -->
+          <div class="form-group full-width">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" placeholder="Enter Email Address" required>
+          </div>
         </div>
 
         <button type="submit" id="submitBtn" class="btn-submit">Confirm Reservation</button>
@@ -210,6 +215,7 @@
         <div class="ticket-row"><span>Booking Type:</span><span id="t_bookingtype" style="font-weight: bold; color: #d4af37;"></span></div>       
         <div class="ticket-row"><span>Guest:</span><span id="t_name"></span></div>
         <div class="ticket-row"><span>Phone:</span><span id="t_phone"></span></div>
+        <div class="ticket-row"><span>Email:</span><span id="t_email"></span></div>
         <div class="ticket-row"><span>Date:</span><span id="t_date"></span></div>
         <div class="ticket-row"><span>Time Slot:</span><span id="t_time"></span></div>
         <div class="ticket-row"><span>Party Size:</span><span><span id="t_party"></span> Guests</span></div>
@@ -300,6 +306,7 @@
             action: "book_table",
             guestName: document.getElementById("guestName").value,
             phone: document.getElementById("phone").value,
+            email: document.getElementById("email").value,
             partySize: parseInt(partyInput.value, 10),
             date: dateInput.value,
             time: selectedTime,
@@ -313,6 +320,7 @@
           document.getElementById("t_ticketNum").innerText = data.ticket.ticketNumber;
           document.getElementById("t_name").innerText = document.getElementById("guestName").value;
           document.getElementById("t_phone").innerText = document.getElementById("phone").value;
+          document.getElementById("t_email").innerText = document.getElementById("email").value;
           document.getElementById("t_date").innerText = dateInput.value;
           document.getElementById("t_time").innerText = selectedTime;
           document.getElementById("t_party").innerText = partyInput.value;
