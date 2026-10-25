@@ -335,19 +335,18 @@
     /* ══════════════════════════════════════════
        CHAT WIDGET
     ══════════════════════════════════════════ */
-
-    /* Typing indicator animation */
     .typing-indicator { display: flex; align-items: center; gap: 4px; }
     .typing-indicator span { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); display: inline-block; animation: typingBounce 1.2s infinite ease-in-out; }
     .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
     .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.6; } 30% { transform: translateY(-8px); opacity: 1; } }
 
-    /* Unread badge */
+    /* Fixed right side button position */
     .chat-widget-btn {
       position: fixed;
       bottom: 25px;
       right: 25px;
+      left: auto;
       width: 60px;
       height: 60px;
       background-color: var(--primary);
@@ -380,14 +379,14 @@
       border: 2px solid var(--bg-dark);
     }
 
-    /* Send button loading state */
     .chat-input-area button:disabled { background: #888; cursor: not-allowed; }
 
-    /* Chat box */
+    /* Chat box position fixed to bottom-right */
     .chat-box {
       position: fixed;
       bottom: 95px;
       right: 25px;
+      left: auto;
       width: 360px;
       height: 520px;
       background: var(--bg-card);
@@ -562,7 +561,6 @@
     }
     .chat-input-area button:hover:not(:disabled) { background: var(--primary-dark); }
 
-    /* Print styles */
     @media print {
       nav, .hero, #features, #menu, #hours, footer,
       .chat-widget-btn, .chat-box, #bookingSection,
@@ -761,7 +759,7 @@
     <div class="menu-card">
       <div class="menu-card-header">
         <h4>Tagliatelle al Tartufo</h4>
-        <span class="menu-price">\$42</span>
+        <span class="menu-price">$42</span>
       </div>
       <p>Hand-rolled tagliatelle with black truffle, aged Parmigiano, and a light butter emulsion.</p>
       <span class="menu-badge">Chef's Special</span>
@@ -769,7 +767,7 @@
     <div class="menu-card">
       <div class="menu-card-header">
         <h4>Branzino al Forno</h4>
-        <span class="menu-price">\$58</span>
+        <span class="menu-price">$58</span>
       </div>
       <p>Whole wood-roasted sea bass with lemon caper butter, cherry tomatoes, and Sicilian olives.</p>
       <span class="menu-badge">Seasonal</span>
@@ -777,14 +775,14 @@
     <div class="menu-card">
       <div class="menu-card-header">
         <h4>Risotto ai Funghi Porcini</h4>
-        <span class="menu-price">\$38</span>
+        <span class="menu-price">$38</span>
       </div>
       <p>Carnaroli rice slow-cooked with imported porcini, white wine, and aged Grana Padano.</p>
     </div>
     <div class="menu-card">
       <div class="menu-card-header">
         <h4>Bistecca alla Fiorentina</h4>
-        <span class="menu-price">\$95</span>
+        <span class="menu-price">$95</span>
       </div>
       <p>Dry-aged T-bone (1kg), grilled over charcoal, served with cannellini beans and rosemary oil.</p>
       <span class="menu-badge">For Two</span>
@@ -792,7 +790,7 @@
     <div class="menu-card">
       <div class="menu-card-header">
         <h4>Burrata e Prosciutto</h4>
-        <span class="menu-price">\$24</span>
+        <span class="menu-price">$24</span>
       </div>
       <p>Creamy burrata from Puglia, San Daniele prosciutto, fig jam, and grilled sourdough.</p>
       <span class="menu-badge">Starter</span>
@@ -800,7 +798,7 @@
     <div class="menu-card">
       <div class="menu-card-header">
         <h4>Tiramisù della Casa</h4>
-        <span class="menu-price">\$18</span>
+        <span class="menu-price">$18</span>
       </div>
       <p>Our legendary house tiramisù — espresso-soaked savoiardi, mascarpone, and dark cocoa.</p>
       <span class="menu-badge">Dessert</span>
@@ -845,7 +843,7 @@
 </footer>
 
 <!-- ─── CHAT WIDGET ─── -->
-<div class="chat-widget-btn" onclick="toggleChat()" title="Chat with Sofia" style="position:relative;">
+<div class="chat-widget-btn" onclick="toggleChat()" title="Chat with Sofia">
   <span>💬</span>
   <div class="chat-badge" id="chatBadge"></div>
 </div>
@@ -876,15 +874,14 @@
 
 <script>
 /* ════════════════════════════════════════════
-   CONFIG
+   CONFIG (Updated Production Webhook URLs)
 ════════════════════════════════════════════ */
-const BASE_URL = 'https://your-n8n-instance.com/webhook';
-const N8N_CHAT_WEBHOOK_URL  = BASE_URL + '/la-gusto-chat';
-const N8N_LIVE_URL           = BASE_URL + '/la-gusto-live-message';
-const N8N_POLL_URL           = BASE_URL + '/la-gusto-poll-agent';
-const N8N_LEAD_URL           = BASE_URL + '/la-gusto-leave-contact';
-const N8N_BOOKING_WEBHOOK    = BASE_URL + '/la-gusto-booking';
-const N8N_SLOT_CHECK_URL     = BASE_URL + '/la-gusto-slot-check';
+const N8N_CHAT_WEBHOOK_URL  = 'https://primary-production-4674.up.railway.app/webhook/las-gusto-chat';
+const N8N_LIVE_URL           = 'https://primary-production-4674.up.railway.app/webhook/las-gusto-live';
+const N8N_POLL_URL           = 'https://primary-production-4674.up.railway.app/webhook/las-gusto-poll';
+const N8N_LEAD_URL           = 'https://primary-production-4674.up.railway.app/webhook/las-gusto-lead';
+const N8N_BOOKING_WEBHOOK    = 'https://primary-production-4674.up.railway.app/webhook/la-gusto-booking';
+const N8N_SLOT_CHECK_URL     = 'https://primary-production-4674.up.railway.app/webhook/la-gusto-slot-check';
 
 const HEADERS_POST = { 'Content-Type': 'application/json' };
 
@@ -988,7 +985,6 @@ function addMsg(text, role) {
   const box = document.getElementById('chatMessages');
   const d = document.createElement('div');
   d.className = 'message ' + role;
-  // Convert markdown bold **text** → <strong>
   d.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>');
   box.appendChild(d);
   box.scrollTop = box.scrollHeight;
@@ -1022,7 +1018,7 @@ function handleKeyPress(e) {
 }
 
 /* ════════════════════════════════════════════
-   SEND CHAT MESSAGE (main function)
+   SEND CHAT MESSAGE (Main Execution)
 ════════════════════════════════════════════ */
 async function sendChatMessage() {
   const userText = chatInput.value.trim();
@@ -1034,7 +1030,7 @@ async function sendChatMessage() {
   chatInput.disabled = true;
   sendBtn.disabled = true;
 
-  // 1) Live / waiting / queued → forward to Slack thread
+  // 1) Live / waiting / queued -> Forward to Slack thread
   if (mode === 'live' || mode === 'waiting' || mode === 'queued') {
     fetch(N8N_LIVE_URL, {
       method: 'POST',
@@ -1107,7 +1103,7 @@ async function sendChatMessage() {
     hideTyping();
 
     if (data.handoff === 'waiting') {
-      addMsg("Please wait, I\u2019m connecting you with a team member\u2026", 'bot');
+      addMsg("Please wait, I'm connecting you with a team member…", 'bot');
       addUnread();
       startHandoff();
     } else {
@@ -1120,7 +1116,7 @@ async function sendChatMessage() {
     hideTyping();
     const errMsg = err.name === 'AbortError'
       ? 'The response is taking too long. Please try again.'
-      : "Sorry, I\u2019m having trouble right now. Please try again or click \u2018Talk to a human\u2019.";
+      : "Sorry, I'm having trouble right now. Please try again or click 'Talk to a human'.";
     addMsg(errMsg, 'bot');
     addUnread();
   }
@@ -1164,15 +1160,13 @@ async function pollAgent() {
     });
     const data = await res.json();
 
-    // Update status to live if agent connected
     if (data.status === 'live' && mode === 'waiting') {
       setMode('live');
       if (waitTimer) clearTimeout(waitTimer);
-      addMsg('\u2705 A team member has joined the chat. You can now speak directly with our staff.', 'system');
+      addMsg('✅ A team member has joined the chat. You can now speak directly with our staff.', 'system');
       addUnread();
     }
 
-    // Deliver new agent messages
     if (data.messages && data.messages.length > 0) {
       for (const msg of data.messages) {
         addMsg(msg.message, 'bot');
@@ -1212,7 +1206,7 @@ function restoreHandoff() {
   const restored = restoreHandoff();
   if (!restored) {
     setTimeout(() => {
-      addMsg("Buonasera! \uD83C\uDF1F I\u2019m Sofia, your AI host at La Gusto. How can I help you today?", 'bot');
+      addMsg("Buonasera! 🌟 I'm Sofia, your AI host at La Gusto. How can I help you today?", 'bot');
     }, 400);
   } else {
     addMsg('Welcome back! Your live chat session is still active.', 'system');
@@ -1222,7 +1216,6 @@ function restoreHandoff() {
 /* ════════════════════════════════════════════
    RESERVATION FORM
 ════════════════════════════════════════════ */
-// Set min date to today
 (function setMinDate() {
   const dateInput = document.getElementById('reservDate');
   const today = new Date();
@@ -1232,7 +1225,6 @@ function restoreHandoff() {
   dateInput.min = `${yyyy}-${mm}-${dd}`;
 })();
 
-// Slot availability check
 let slotCheckTimeout = null;
 function checkSlotAvailability() {
   const date = document.getElementById('reservDate').value;
@@ -1269,7 +1261,6 @@ document.getElementById('reservDate').addEventListener('change', checkSlotAvaila
 document.getElementById('reservTime').addEventListener('change', checkSlotAvailability);
 document.getElementById('partySize').addEventListener('change', checkSlotAvailability);
 
-// Reservation form submission
 document.getElementById('reservationForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const submitBtn = document.getElementById('submitBtn');
@@ -1298,7 +1289,6 @@ document.getElementById('reservationForm').addEventListener('submit', async func
     try { data = await res.json(); } catch { data = {}; }
 
     if (res.ok && (data.success !== false)) {
-      // Generate ticket number if not provided
       const ticketNum = data.ticket_number || data.ticketNumber || ('LG-' + Math.random().toString(36).toUpperCase().slice(2, 8));
       showTicket({ name, email, date, time, party, ticketNum });
       statusEl.textContent = 'Reservation confirmed! Check your email for a copy.';
@@ -1327,7 +1317,6 @@ function showTicket({ name, email, date, time, party, ticketNum }) {
   document.getElementById('tkParty').textContent  = party + (party === '1' ? ' guest' : ' guests');
   document.getElementById('tkNumber').textContent = ticketNum;
 
-  // Generate QR code
   const qrContainer = document.getElementById('ticketQR');
   qrContainer.innerHTML = '';
   try {
