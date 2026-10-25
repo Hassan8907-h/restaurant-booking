@@ -588,12 +588,16 @@
       }
 
       // 3) Normal AI conversation
-      const bot = addMsg("Thinking...", "bot");
+      const wantsHumanNow = /\b(human|agent|manager|real person|live chat|talk to someone|speak to someone)\b/i.test(userText);
+      const bot = addMsg(wantsHumanNow ? "Please wait, I'm connecting you with a team member…" : "Thinking...", "bot");
+      const ctrl = new AbortController();
+      const timeoutId = setTimeout(() => ctrl.abort(), 45000);
       try {
         const res = await fetch(N8N_CHAT_WEBHOOK_URL, {
-          method: "POST", headers: HEADERS_POST,
+          method: "POST", headers: HEADERS_POST, signal: ctrl.signal,
           body: JSON.stringify({ message: userText, sessionId: chatSessionId })
         });
+        clearTimeout(timeoutId);
         const data = await res.json();
         let replyText = "";
         if (typeof data === "string") replyText = data;
@@ -605,7 +609,10 @@
         bot.innerText = replyText;
         if (data.handoff === "waiting") startHandoff();
       } catch (err) {
-        bot.innerText = "Sorry, I am having trouble connecting to the host agent right now. Please try again in a moment.";
+        clearTimeout(timeoutId);
+        bot.innerText = err.name === "AbortError"
+          ? "This is taking longer than expected. Please try again in a moment."
+          : "Sorry, I am having trouble connecting to the host agent right now. Please try again in a moment.";
       }
       document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
     }
