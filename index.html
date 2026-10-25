@@ -262,19 +262,20 @@
       <span class="close-chat" onclick="toggleChat()">✖</span>
     </div>
     <div class="chat-messages" id="chatMessages">
-      <div class="message bot">Welcome to La Gusto! How can I assist you with your reservation or our menu today?</div>
+      <div class="message bot">Welcome to La Gusto! How can I assist you with your reservation, menu, or restaurant policies today?</div>
     </div>
     <div class="chat-input-area">
-      <input type="text" id="chatInput" placeholder="Ask about menu, hours..." onkeypress="handleKeyPress(event)">
+      <input type="text" id="chatInput" placeholder="Ask about menu, rules, hours..." onkeypress="handleKeyPress(event)">
       <button onclick="sendChatMessage()">Send</button>
     </div>
   </div>
 
   <script>
+    // Live Production Webhook Endpoints
     const N8N_WEBHOOK_URL = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/new-reservation";
     const N8N_CHAT_WEBHOOK_URL = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/las-gusto-chat";
 
-    // Initialize or Retrieve Persistent Browser Session ID for Memory Tracking
+    // Initialize or Retrieve Persistent Session ID
     let chatSessionId = sessionStorage.getItem("laGustoSessionId");
     if (!chatSessionId) {
       chatSessionId = "lg_session_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
@@ -403,7 +404,7 @@
       responseBanner.className = `response-banner ${type}`;
     }
 
-    /* AI Chat Widget Functions with Persistent Session Tracking */
+    /* AI Chat Widget Functions with Session Memory */
     function toggleChat() {
       const chatBox = document.getElementById("chatBox");
       chatBox.classList.toggle("open");
@@ -428,7 +429,7 @@
       input.value = "";
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-      // Render loading message
+      // Render loading indicator
       const botMsgDiv = document.createElement("div");
       botMsgDiv.className = "message bot";
       botMsgDiv.innerText = "Thinking...";
@@ -444,7 +445,7 @@
           },
           body: JSON.stringify({ 
             message: userText,
-            sessionId: chatSessionId // Pass sessionId for n8n memory persistence
+            sessionId: chatSessionId 
           })
         });
 
