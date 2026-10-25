@@ -119,7 +119,7 @@
     .chat-messages {
       flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem;
     }
-    .message { max-width: 80%; padding: 0.6rem 0.9rem; border-radius: 6px; font-size: 0.9rem; line-height: 1.4; word-wrap: break-word; }
+    .message { max-width: 85%; padding: 0.6rem 0.9rem; border-radius: 6px; font-size: 0.9rem; line-height: 1.4; word-wrap: break-word; white-space: pre-line; }
     .message.bot { background: #2a2a2a; color: var(--text-light); align-self: flex-start; border-left: 3px solid var(--primary); }
     .message.user { background: var(--primary); color: #000; align-self: flex-end; font-weight: 500; }
 
@@ -404,7 +404,7 @@
       responseBanner.className = `response-banner ${type}`;
     }
 
-    /* AI Chat Widget Functions with Resilient Response Parsing */
+    /* AI Chat Widget Functions with Universal Payload Extraction */
     function toggleChat() {
       const chatBox = document.getElementById("chatBox");
       chatBox.classList.toggle("open");
@@ -451,7 +451,7 @@
 
         const data = await res.json();
 
-        // Universal extraction logic across all n8n response structures
+        // Extract text across all possible n8n return structures
         let replyText = "";
         if (typeof data === "string") {
           replyText = data;
