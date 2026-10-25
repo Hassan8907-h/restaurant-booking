@@ -82,9 +82,7 @@
       display: none; max-width: 380px; margin: 2rem auto 0 auto;
       background: #fff; color: #111; border: 2px dashed #111; padding: 1.5rem; border-radius: 6px; font-family: 'Courier New', Courier, monospace;
     }
-    .ticket-card.show {
-      display: block;
-    }
+    .ticket-card.show { display: block; }
     .ticket-header { text-align: center; border-bottom: 2px dashed #111; padding-bottom: 0.75rem; margin-bottom: 1rem; }
     .ticket-header h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #111; margin-bottom: 0.2rem; }
     .ticket-body { font-size: 0.85rem; display: flex; flex-direction: column; gap: 0.4rem; }
@@ -92,43 +90,69 @@
     .ticket-row span:first-child { font-weight: bold; color: #333; }
     .ticket-footer { margin-top: 1.2rem; text-align: center; border-top: 2px dashed #111; padding-top: 1rem; }
     #qrcode { display: flex; justify-content: center; margin: 0.5rem 0; }
-    
+
+    /* AI Chat Widget Floating Styles */
+    .chat-widget-btn {
+      position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px;
+      background-color: var(--primary); color: #000; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 26px; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      z-index: 1000; transition: transform 0.2s;
+    }
+    .chat-widget-btn:hover { transform: scale(1.08); }
+
+    .chat-box {
+      position: fixed; bottom: 95px; right: 25px; width: 360px; height: 480px;
+      background: var(--bg-card); border: 1px solid #3a3a3a; border-radius: 8px;
+      display: none; flex-direction: column; box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      z-index: 1000; overflow: hidden;
+    }
+    .chat-box.open { display: flex; }
+
+    .chat-header {
+      background: #181818; padding: 1rem; border-bottom: 1px solid #2a2a2a;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .chat-header h4 { font-family: 'Playfair Display', serif; color: var(--primary); }
+    .close-chat { cursor: pointer; color: var(--text-muted); font-size: 1.2rem; }
+
+    .chat-messages {
+      flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem;
+    }
+    .message { max-width: 80%; padding: 0.6rem 0.9rem; border-radius: 6px; font-size: 0.9rem; line-height: 1.4; }
+    .message.bot { background: #2a2a2a; color: var(--text-light); align-self: flex-start; border-left: 3px solid var(--primary); }
+    .message.user { background: var(--primary); color: #000; align-self: flex-end; font-weight: 500; }
+
+    .chat-input-area {
+      display: flex; padding: 0.75rem; background: #181818; border-top: 1px solid #2a2a2a;
+    }
+    .chat-input-area input {
+      flex: 1; background: #2a2a2a; border: 1px solid #3a3a3a; padding: 0.6rem;
+      border-radius: 4px; color: var(--text-light); outline: none; font-size: 0.9rem;
+    }
+    .chat-input-area button {
+      background: var(--primary); border: none; color: #000; padding: 0.6rem 1rem;
+      margin-left: 0.5rem; border-radius: 4px; cursor: pointer; font-weight: 600;
+    }
+
     @media (max-width: 768px) {
       .form-grid { grid-template-columns: 1fr; }
       .form-group.full-width { grid-column: span 1; }
       nav { padding: 0.8rem 4%; }
+      .chat-box { width: 90%; right: 5%; bottom: 85px; }
     }
 
-    /* Print Styles */
     @media print {
-      body * {
-        visibility: hidden !important;
-      }
-      #ticketCard, #ticketCard * {
-        visibility: visible !important;
-      }
+      body * { visibility: hidden !important; }
+      #ticketCard, #ticketCard * { visibility: visible !important; }
       #ticketCard {
-        position: absolute !important;
-        left: 0 !important;
-        top: 0 !important;
-        width: 100% !important;
-        margin: 0 !important;
-        box-shadow: none !important;
-        border: none !important;
-        background: #fff !important;
-        color: #000 !important;
+        position: absolute !important; left: 0 !important; top: 0 !important;
+        width: 100% !important; margin: 0 !important; box-shadow: none !important;
+        border: none !important; background: #fff !important; color: #000 !important;
       }
-      .ticket-row {
-        display: flex !important;
-        justify-content: space-between !important;
-      }
-      #qrcode {
-        display: flex !important;
-        justify-content: center !important;
-      }
-      .no-print {
-        display: none !important;
-      }
+      .ticket-row { display: flex !important; justify-content: space-between !important; }
+      #qrcode { display: flex !important; justify-content: center !important; }
+      .no-print { display: none !important; }
     }
   </style>
 </head>
@@ -190,7 +214,6 @@
             <input type="tel" id="phone" placeholder="Enter Phone Number" required>
           </div>
 
-          <!-- Added Email Field in Contact Area -->
           <div class="form-group full-width">
             <label for="email">Email Address</label>
             <input type="email" id="email" placeholder="Enter Email Address" required>
@@ -212,7 +235,7 @@
       <div class="ticket-body">
         <div class="ticket-row"><span>Ticket ID:</span><span id="t_ticketNum" style="font-weight: bold; color: var(--primary);"></span></div>
         <div class="ticket-row"><span>Table Number:</span><span id="t_tableId" style="font-weight: bold; color: #d4af37;"></span></div>
-        <div class="ticket-row"><span>Booking Type:</span><span id="t_bookingtype" style="font-weight: bold; color: #d4af37;"></span></div>       
+        <div class="ticket-row"><span>Booking Type:</span><span id="t_bookingtype" style="font-weight: bold; color: #d4af37;"></span></div>        
         <div class="ticket-row"><span>Guest:</span><span id="t_name"></span></div>
         <div class="ticket-row"><span>Phone:</span><span id="t_phone"></span></div>
         <div class="ticket-row"><span>Email:</span><span id="t_email"></span></div>
@@ -230,8 +253,26 @@
     </div>
   </section>
 
+  <!-- AI Chat Widget UI -->
+  <div class="chat-widget-btn no-print" onclick="toggleChat()">💬</div>
+
+  <div class="chat-box no-print" id="chatBox">
+    <div class="chat-header">
+      <h4>La Gusto AI Host</h4>
+      <span class="close-chat" onclick="toggleChat()">✖</span>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="message bot">Welcome to La Gusto! How can I assist you with your reservation or our menu today?</div>
+    </div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="Ask about menu, hours..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendChatMessage()">Send</button>
+    </div>
+  </div>
+
   <script>
     const N8N_WEBHOOK_URL = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/new-reservation";
+    const N8N_CHAT_WEBHOOK_URL = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/las-gusto-chat";
 
     const dateInput = document.getElementById("date");
     const partyInput = document.getElementById("partySize");
@@ -353,6 +394,56 @@
     function showBanner(msg, type) {
       responseBanner.innerText = msg;
       responseBanner.className = `response-banner ${type}`;
+    }
+
+    /* AI Chat Widget Functions */
+    function toggleChat() {
+      const chatBox = document.getElementById("chatBox");
+      chatBox.classList.toggle("open");
+    }
+
+    function handleKeyPress(e) {
+      if (e.key === "Enter") sendChatMessage();
+    }
+
+    async function sendChatMessage() {
+      const input = document.getElementById("chatInput");
+      const messagesContainer = document.getElementById("chatMessages");
+      const userText = input.value.trim();
+
+      if (!userText) return;
+
+      // Render user message
+      const userMsgDiv = document.createElement("div");
+      userMsgDiv.className = "message user";
+      userMsgDiv.innerText = userText;
+      messagesContainer.appendChild(userMsgDiv);
+      input.value = "";
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      // Render loading message
+      const botMsgDiv = document.createElement("div");
+      botMsgDiv.className = "message bot";
+      botMsgDiv.innerText = "Thinking...";
+      messagesContainer.appendChild(botMsgDiv);
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      try {
+        const res = await fetch(N8N_CHAT_WEBHOOK_URL, {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true" 
+          },
+          body: JSON.stringify({ message: userText })
+        });
+
+        const data = await res.json();
+        botMsgDiv.innerText = data.response_text || "I have received your query.";
+      } catch (err) {
+        botMsgDiv.innerText = "Sorry, I am having trouble connecting to the host agent right now.";
+      }
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
   </script>
 </body>
