@@ -18,17 +18,13 @@
       --radius: 10px;
       --shadow: 0 4px 24px rgba(0,0,0,0.4);
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       background: var(--bg-dark);
       color: var(--text-main);
       min-height: 100vh;
     }
-
-    /* ─── NAV ─── */
     nav {
       background: rgba(18,18,18,0.97);
       backdrop-filter: blur(8px);
@@ -49,11 +45,7 @@
       letter-spacing: 2px;
       text-transform: uppercase;
     }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      list-style: none;
-    }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
     .nav-links a {
       color: var(--text-muted);
       text-decoration: none;
@@ -62,8 +54,6 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--primary); }
-
-    /* ─── HERO ─── */
     .hero {
       background: linear-gradient(135deg, #0d0d0d 0%, #1a1200 50%, #0d0d0d 100%);
       text-align: center;
@@ -115,29 +105,11 @@
     .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
     .btn-outline { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
     .btn-outline:hover { background: rgba(212,175,55,0.1); transform: translateY(-1px); }
-
-    /* ─── SECTION LAYOUT ─── */
     section { padding: 72px 24px; max-width: 1100px; margin: 0 auto; }
-    .section-title {
-      text-align: center;
-      margin-bottom: 48px;
-    }
-    .section-title h2 {
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 8px;
-    }
+    .section-title { text-align: center; margin-bottom: 48px; }
+    .section-title h2 { font-size: 2rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px; }
     .section-title p { color: var(--text-muted); font-size: 1rem; }
-    .gold-line {
-      width: 50px;
-      height: 3px;
-      background: var(--primary);
-      margin: 12px auto 0;
-      border-radius: 2px;
-    }
-
-    /* ─── FEATURES ─── */
+    .gold-line { width: 50px; height: 3px; background: var(--primary); margin: 12px auto 0; border-radius: 2px; }
     .features-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -155,14 +127,14 @@
     .feature-icon { font-size: 2.2rem; margin-bottom: 14px; }
     .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
     .feature-card p { color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; }
-
-    /* ─── BOOKING FORM ─── */
-    #booking { background: var(--bg-card); border-radius: 16px; padding: 48px; border: 1px solid var(--border); box-shadow: var(--shadow); }
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
+    #booking {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 48px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
     }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .form-group { display: flex; flex-direction: column; gap: 7px; }
     .form-group.full { grid-column: 1 / -1; }
     .form-group label { font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.4px; }
@@ -185,16 +157,10 @@
       border-color: var(--primary);
     }
     .form-group select option { background: var(--bg-dark); }
-    .slot-status {
-      font-size: 0.8rem;
-      margin-top: 4px;
-      min-height: 18px;
-      transition: color 0.3s;
-    }
+    .slot-status { font-size: 0.8rem; margin-top: 4px; min-height: 18px; transition: color 0.3s; }
     .slot-available { color: #4caf50; }
     .slot-busy { color: #f44336; }
     .slot-checking { color: var(--text-muted); }
-
     .form-submit-row {
       grid-column: 1 / -1;
       display: flex;
@@ -210,8 +176,6 @@
     }
     #bookingStatus.success { background: rgba(76,175,80,0.15); color: #4caf50; border: 1px solid rgba(76,175,80,0.3); display: block; }
     #bookingStatus.error { background: rgba(244,67,54,0.15); color: #f44336; border: 1px solid rgba(244,67,54,0.3); display: block; }
-
-    /* ─── TICKET CARD ─── */
     #ticketSection { display: none; }
     .ticket-card {
       background: linear-gradient(135deg, #1a1200 0%, #252010 100%);
@@ -257,25 +221,13 @@
       text-align: center;
       margin: 16px 0 8px;
     }
-    #ticketQR {
-      display: flex;
-      justify-content: center;
-      margin: 16px 0;
-    }
-    #ticketQR canvas,
-    #ticketQR img {
+    #ticketQR { display: flex; justify-content: center; margin: 16px 0; }
+    #ticketQR canvas, #ticketQR img {
       border-radius: 8px;
       background: #fff;
       padding: 6px;
     }
-    .ticket-actions {
-      display: flex;
-      gap: 12px;
-      margin-top: 20px;
-      justify-content: center;
-    }
-
-    /* ─── MENU ─── */
+    .ticket-actions { display: flex; gap: 12px; margin-top: 20px; justify-content: center; }
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -303,8 +255,6 @@
       margin-top: 8px;
       letter-spacing: 0.5px;
     }
-
-    /* ─── HOURS / INFO ─── */
     .info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -317,11 +267,15 @@
       padding: 24px;
     }
     .info-card h3 { color: var(--primary); margin-bottom: 14px; font-size: 1rem; }
-    .info-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.88rem; }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.88rem;
+    }
     .info-row:last-child { border-bottom: none; }
     .info-row span:first-child { color: var(--text-muted); }
-
-    /* ─── FOOTER ─── */
     footer {
       background: #0a0a0a;
       border-top: 1px solid var(--border);
@@ -331,23 +285,22 @@
       font-size: 0.85rem;
     }
     footer strong { color: var(--primary); }
-
-    /* ══════════════════════════════════════════
-       CHAT WIDGET
-    ══════════════════════════════════════════ */
     .typing-indicator { display: flex; align-items: center; gap: 4px; }
-    .typing-indicator span { width: 8px; height: 8px; border-radius: 50%; background: var(--primary); display: inline-block; animation: typingBounce 1.2s infinite ease-in-out; }
+    .typing-indicator span {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--primary); display: inline-block;
+      animation: typingBounce 1.2s infinite ease-in-out;
+    }
     .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
     .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.6; } 30% { transform: translateY(-8px); opacity: 1; } }
-
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.6; }
+      30% { transform: translateY(-8px); opacity: 1; }
+    }
     .chat-widget-btn {
       position: fixed;
-      bottom: 25px;
-      right: 25px;
-      left: auto;
-      width: 60px;
-      height: 60px;
+      bottom: 25px; right: 25px;
+      width: 60px; height: 60px;
       background-color: var(--primary);
       color: #000;
       border-radius: 50%;
@@ -363,13 +316,11 @@
     .chat-widget-btn:hover { transform: scale(1.08); }
     .chat-badge {
       position: absolute;
-      top: -5px;
-      right: -5px;
+      top: -5px; right: -5px;
       background: #e74c3c;
       color: #fff;
       border-radius: 50%;
-      width: 22px;
-      height: 22px;
+      width: 22px; height: 22px;
       font-size: 11px;
       display: none;
       align-items: center;
@@ -377,16 +328,11 @@
       font-weight: bold;
       border: 2px solid var(--bg-dark);
     }
-
     .chat-input-area button:disabled { background: #888; cursor: not-allowed; }
-
     .chat-box {
       position: fixed;
-      bottom: 95px;
-      right: 25px;
-      left: auto;
-      width: 360px;
-      height: 520px;
+      bottom: 95px; right: 25px;
+      width: 360px; height: 520px;
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 16px;
@@ -405,7 +351,6 @@
       pointer-events: all;
       transform: translateY(0);
     }
-
     .chat-header {
       background: linear-gradient(135deg, #1a1200, #252010);
       border-bottom: 1px solid var(--border);
@@ -430,8 +375,7 @@
     .chat-header-info strong { font-size: 0.92rem; display: block; }
     .chat-header-info small { color: #4caf50; font-size: 0.75rem; }
     .chat-close-btn {
-      background: none;
-      border: none;
+      background: none; border: none;
       color: var(--text-muted);
       font-size: 1.2rem;
       cursor: pointer;
@@ -440,7 +384,6 @@
       transition: color 0.2s;
     }
     .chat-close-btn:hover { color: var(--text-main); }
-
     .chat-status-bar {
       background: rgba(212,175,55,0.08);
       border-bottom: 1px solid var(--border);
@@ -452,7 +395,6 @@
       gap: 6px;
     }
     .chat-status-bar.show { display: flex; }
-
     #chatMessages {
       flex: 1;
       overflow-y: auto;
@@ -465,7 +407,6 @@
     #chatMessages::-webkit-scrollbar { width: 4px; }
     #chatMessages::-webkit-scrollbar-track { background: transparent; }
     #chatMessages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
-
     .message {
       max-width: 82%;
       padding: 10px 14px;
@@ -475,8 +416,10 @@
       word-break: break-word;
       animation: msgFadeIn 0.25s ease;
     }
-    @keyframes msgFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-
+    @keyframes msgFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: none; }
+    }
     .message.bot {
       background: var(--bg-card2);
       border: 1px solid var(--border);
@@ -502,7 +445,6 @@
       padding: 6px 14px;
       max-width: 90%;
     }
-
     .chat-quick-replies {
       display: flex;
       flex-wrap: wrap;
@@ -520,7 +462,6 @@
       transition: all 0.2s;
     }
     .quick-reply:hover { background: rgba(212,175,55,0.12); border-color: var(--primary); }
-
     .chat-input-area {
       padding: 12px 16px;
       border-top: 1px solid var(--border);
@@ -547,8 +488,7 @@
       color: #000;
       border: none;
       border-radius: 8px;
-      width: 38px;
-      height: 38px;
+      width: 38px; height: 38px;
       font-size: 1rem;
       cursor: pointer;
       display: flex;
@@ -558,7 +498,6 @@
       transition: background 0.2s;
     }
     .chat-input-area button:hover:not(:disabled) { background: var(--primary-dark); }
-
     @media print {
       nav, .hero, #features, #menu, #hours, footer,
       .chat-widget-btn, .chat-box, #bookingSection,
@@ -566,7 +505,6 @@
       #ticketSection { display: block !important; }
       .ticket-card { border: 2px solid #d4af37; box-shadow: none; }
     }
-
     @media (max-width: 600px) {
       nav { padding: 0 16px; }
       .nav-links { display: none; }
@@ -577,8 +515,6 @@
   </style>
 </head>
 <body>
-
-<!-- ─── NAV ─── -->
 <nav>
   <div class="nav-logo">La Gusto</div>
   <ul class="nav-links">
@@ -589,7 +525,6 @@
   </ul>
 </nav>
 
-<!-- ─── HERO ─── -->
 <div class="hero">
   <div class="hero-tag">✦ Fine Italian Dining Since 1998</div>
   <h1>Experience the Art of<br><span>Italian Cuisine</span></h1>
@@ -600,7 +535,6 @@
   </div>
 </div>
 
-<!-- ─── FEATURES ─── -->
 <section id="features">
   <div class="section-title">
     <h2>Why Choose La Gusto</h2>
@@ -631,7 +565,6 @@
   </div>
 </section>
 
-<!-- ─── BOOKING ─── -->
 <section id="bookingSection" style="padding-top:0">
   <div class="section-title">
     <h2>Reserve Your Table</h2>
@@ -672,24 +605,22 @@
           <input type="date" id="reservDate" required />
         </div>
         <div class="form-group">
-          <label for="reservTime">Preferred Time *</label>
+          <label for="reservTime">Preferred Time Slot *</label>
           <select id="reservTime" required>
-            <option value="">Select time</option>
-            <option value="12:00">12:00 PM</option>
-            <option value="12:30">12:30 PM</option>
-            <option value="13:00">1:00 PM</option>
-            <option value="13:30">1:30 PM</option>
-            <option value="14:00">2:00 PM</option>
-            <option value="18:00">6:00 PM</option>
-            <option value="18:30">6:30 PM</option>
-            <option value="19:00">7:00 PM</option>
-            <option value="19:30">7:30 PM</option>
-            <option value="20:00">8:00 PM</option>
-            <option value="20:30">8:30 PM</option>
-            <option value="21:00">9:00 PM</option>
-            <option value="21:30">9:30 PM</option>
+            <option value="">Select time slot</option>
+            <option value="12:00 PM - 02:00 PM">12:00 PM – 02:00 PM</option>
+            <option value="02:30 PM - 04:30 PM">02:30 PM – 04:30 PM</option>
+            <option value="05:00 PM - 07:00 PM">05:00 PM – 07:00 PM</option>
+            <option value="07:30 PM - 09:30 PM">07:30 PM – 09:30 PM</option>
+            <option value="10:00 PM - 11:30 PM">10:00 PM – 11:30 PM</option>
           </select>
           <div class="slot-status" id="slotStatus"></div>
+        </div>
+        <div class="form-group">
+          <label>
+            <input type="checkbox" id="privateBooking" style="width:auto;margin-right:8px;">
+            Exclusive Private Table (no sharing)
+          </label>
         </div>
         <div class="form-group full">
           <label for="specialReq">Special Requests</label>
@@ -704,7 +635,6 @@
   </div>
 </section>
 
-<!-- ─── TICKET ─── -->
 <section id="ticketSection">
   <div class="section-title">
     <h2>Your Reservation Ticket</h2>
@@ -715,26 +645,13 @@
     <div class="ticket-restaurant">La Gusto</div>
     <div class="ticket-subtitle">Fine Italian Dining · 123 Gourmet Lane</div>
     <hr class="ticket-divider" />
-    <div class="ticket-field">
-      <span>Guest Name</span>
-      <span id="tkName">—</span>
-    </div>
-    <div class="ticket-field">
-      <span>Date</span>
-      <span id="tkDate">—</span>
-    </div>
-    <div class="ticket-field">
-      <span>Time</span>
-      <span id="tkTime">—</span>
-    </div>
-    <div class="ticket-field">
-      <span>Party Size</span>
-      <span id="tkParty">—</span>
-    </div>
-    <div class="ticket-field">
-      <span>Email</span>
-      <span id="tkEmail">—</span>
-    </div>
+    <div class="ticket-field"><span>Guest Name</span><span id="tkName">—</span></div>
+    <div class="ticket-field"><span>Date</span><span id="tkDate">—</span></div>
+    <div class="ticket-field"><span>Time Slot</span><span id="tkTime">—</span></div>
+    <div class="ticket-field"><span>Party Size</span><span id="tkParty">—</span></div>
+    <div class="ticket-field"><span>Booking Type</span><span id="tkType">—</span></div>
+    <div class="ticket-field"><span>Assigned Table</span><span id="tkTable">—</span></div>
+    <div class="ticket-field"><span>Email</span><span id="tkEmail">—</span></div>
     <hr class="ticket-divider" />
     <div style="text-align:center; color:var(--text-muted); font-size:0.8rem; margin-bottom:6px;">TICKET NUMBER</div>
     <div class="ticket-number" id="tkNumber">—</div>
@@ -746,7 +663,6 @@
   </div>
 </section>
 
-<!-- ─── MENU ─── -->
 <section id="menu">
   <div class="section-title">
     <h2>Signature Menu</h2>
@@ -755,56 +671,37 @@
   </div>
   <div class="menu-grid">
     <div class="menu-card">
-      <div class="menu-card-header">
-        <h4>Tagliatelle al Tartufo</h4>
-        <span class="menu-price">$42</span>
-      </div>
+      <div class="menu-card-header"><h4>Tagliatelle al Tartufo</h4><span class="menu-price">$42</span></div>
       <p>Hand-rolled tagliatelle with black truffle, aged Parmigiano, and a light butter emulsion.</p>
       <span class="menu-badge">Chef's Special</span>
     </div>
     <div class="menu-card">
-      <div class="menu-card-header">
-        <h4>Branzino al Forno</h4>
-        <span class="menu-price">$58</span>
-      </div>
+      <div class="menu-card-header"><h4>Branzino al Forno</h4><span class="menu-price">$58</span></div>
       <p>Whole wood-roasted sea bass with lemon caper butter, cherry tomatoes, and Sicilian olives.</p>
       <span class="menu-badge">Seasonal</span>
     </div>
     <div class="menu-card">
-      <div class="menu-card-header">
-        <h4>Risotto ai Funghi Porcini</h4>
-        <span class="menu-price">$38</span>
-      </div>
+      <div class="menu-card-header"><h4>Risotto ai Funghi Porcini</h4><span class="menu-price">$38</span></div>
       <p>Carnaroli rice slow-cooked with imported porcini, white wine, and aged Grana Padano.</p>
     </div>
     <div class="menu-card">
-      <div class="menu-card-header">
-        <h4>Bistecca alla Fiorentina</h4>
-        <span class="menu-price">$95</span>
-      </div>
+      <div class="menu-card-header"><h4>Bistecca alla Fiorentina</h4><span class="menu-price">$95</span></div>
       <p>Dry-aged T-bone (1kg), grilled over charcoal, served with cannellini beans and rosemary oil.</p>
       <span class="menu-badge">For Two</span>
     </div>
     <div class="menu-card">
-      <div class="menu-card-header">
-        <h4>Burrata e Prosciutto</h4>
-        <span class="menu-price">$24</span>
-      </div>
+      <div class="menu-card-header"><h4>Burrata e Prosciutto</h4><span class="menu-price">$24</span></div>
       <p>Creamy burrata from Puglia, San Daniele prosciutto, fig jam, and grilled sourdough.</p>
       <span class="menu-badge">Starter</span>
     </div>
     <div class="menu-card">
-      <div class="menu-card-header">
-        <h4>Tiramisù della Casa</h4>
-        <span class="menu-price">$18</span>
-      </div>
+      <div class="menu-card-header"><h4>Tiramisù della Casa</h4><span class="menu-price">$18</span></div>
       <p>Our legendary house tiramisù — espresso-soaked savoiardi, mascarpone, and dark cocoa.</p>
       <span class="menu-badge">Dessert</span>
     </div>
   </div>
 </section>
 
-<!-- ─── HOURS ─── -->
 <section id="hours">
   <div class="section-title">
     <h2>Visit Us</h2>
@@ -814,9 +711,8 @@
   <div class="info-grid">
     <div class="info-card">
       <h3>🕐 Opening Hours</h3>
-      <div class="info-row"><span>Monday – Thursday</span><span>12:00 – 22:00</span></div>
-      <div class="info-row"><span>Friday – Saturday</span><span>12:00 – 23:00</span></div>
-      <div class="info-row"><span>Sunday</span><span>13:00 – 21:00</span></div>
+      <div class="info-row"><span>Tuesday – Sunday</span><span>12:00 – 23:30</span></div>
+      <div class="info-row"><span>Monday</span><span>Closed</span></div>
     </div>
     <div class="info-card">
       <h3>📍 Location & Contact</h3>
@@ -833,19 +729,17 @@
   </div>
 </section>
 
-<!-- ─── FOOTER ─── -->
 <footer>
   <p><strong>La Gusto</strong> · Fine Italian Dining Since 1998</p>
   <p style="margin-top:6px">123 Gourmet Lane · +1 (555) 123-4567 · info@lagusto.com</p>
   <p style="margin-top:8px; font-size:0.78rem; opacity:0.6">© 2026 La Gusto Restaurant. All rights reserved.</p>
 </footer>
 
-<!-- ─── CHAT WIDGET ─── -->
+<!-- CHAT WIDGET -->
 <div class="chat-widget-btn" onclick="toggleChat()" title="Chat with Sofia">
   <span>💬</span>
   <div class="chat-badge" id="chatBadge"></div>
 </div>
-
 <div class="chat-box" id="chatBox">
   <div class="chat-header">
     <div class="chat-avatar">S</div>
@@ -860,8 +754,8 @@
   </div>
   <div id="chatMessages"></div>
   <div class="chat-quick-replies" id="quickReplies">
-    <button class="quick-reply" onclick="sendQuick('I want to make a reservation')">📅 Make Reservation</button>
     <button class="quick-reply" onclick="sendQuick('What are your opening hours?')">🕐 Hours</button>
+    <button class="quick-reply" onclick="sendQuick('I want to look up my reservation')">🔍 Lookup Booking</button>
     <button class="quick-reply" onclick="requestHuman()">👤 Talk to Human</button>
   </div>
   <div class="chat-input-area">
@@ -872,14 +766,15 @@
 
 <script>
 /* ════════════════════════════════════════════
-   CONFIG (Updated Production Webhook URLs matching exact workflow paths)
+   CONFIG – REPLACE THESE WITH YOUR REAL PRODUCTION URLs
 ════════════════════════════════════════════ */
-const N8N_CHAT_WEBHOOK_URL  = 'https://underrate-ranting-unbutton.ngrok-free.dev/webhook-test/las-gusto-chat';
-const N8N_LIVE_URL           = 'https://underrate-ranting-unbutton.ngrok-free.dev/webhook-test/las-gusto-live';
-const N8N_POLL_URL           = 'https://underrate-ranting-unbutton.ngrok-free.dev/webhook-test/las-gusto-poll';
-const N8N_LEAD_URL           = 'https://underrate-ranting-unbutton.ngrok-free.dev/webhook-test/las-gusto-lead';
-const N8N_BOOKING_WEBHOOK    = 'https://underrate-ranting-unbutton.ngrok-free.dev/webhook-test/new-reservation';
-const N8N_SLOT_CHECK_URL     = 'https://primary-production-4674.up.railway.app/webhook/la-gusto-slot-check';
+const BASE = 'https://underrate-ranting-unbutton.ngrok-free.dev'; // ← change to your n8n domain
+
+const N8N_CHAT_WEBHOOK_URL = `${BASE}/webhook/las-gusto-chat`;
+const N8N_LIVE_URL         = `${BASE}/webhook/las-gusto-live`;
+const N8N_POLL_URL         = `${BASE}/webhook/las-gusto-poll`;
+const N8N_LEAD_URL         = `${BASE}/webhook/las-gusto-lead`;
+const N8N_BOOKING_WEBHOOK  = `${BASE}/webhook/new-reservation`;
 
 const HEADERS_POST = { 'Content-Type': 'application/json' };
 
@@ -889,15 +784,14 @@ const HEADERS_POST = { 'Content-Type': 'application/json' };
 let chatSessionId = sessionStorage.getItem('lagusto_session') || ('sess_' + Math.random().toString(36).slice(2,10));
 sessionStorage.setItem('lagusto_session', chatSessionId);
 
-let mode = 'ai';           // ai | waiting | live | contact | queued
+let mode = 'ai';
 let pollTimer = null;
-let waitTimer = null;
 let lastPollTs = 0;
 let unreadCount = 0;
 let contactFallbackTimer = null;
 
-const chatBox   = document.getElementById('chatBox');
-const chatInput = document.getElementById('chatInput');
+const chatBox     = document.getElementById('chatBox');
+const chatInput   = document.getElementById('chatInput');
 const chatSendBtn = document.getElementById('chatSendBtn');
 
 function setMode(m) {
@@ -926,15 +820,12 @@ function setMode(m) {
   sessionStorage.setItem('lagusto_mode', m);
 }
 
-function isPending() { return mode === 'waiting' || mode === 'live'; }
-
 /* ════════════════════════════════════════════
-   TYPING INDICATOR
+   TYPING / BADGE / TOGGLE
 ════════════════════════════════════════════ */
 function showTyping() {
   const box = document.getElementById('chatMessages');
-  const existing = document.getElementById('typingIndicator');
-  if (existing) return;
+  if (document.getElementById('typingIndicator')) return;
   const d = document.createElement('div');
   d.className = 'message bot typing-indicator';
   d.id = 'typingIndicator';
@@ -942,15 +833,10 @@ function showTyping() {
   box.appendChild(d);
   box.scrollTop = box.scrollHeight;
 }
-
 function hideTyping() {
   const t = document.getElementById('typingIndicator');
   if (t) t.remove();
 }
-
-/* ════════════════════════════════════════════
-   UNREAD BADGE
-════════════════════════════════════════════ */
 function addUnread() {
   if (chatBox.classList.contains('open')) return;
   unreadCount++;
@@ -958,16 +844,11 @@ function addUnread() {
   badge.innerText = unreadCount > 9 ? '9+' : unreadCount;
   badge.style.display = 'flex';
 }
-
 function clearBadge() {
   unreadCount = 0;
   const badge = document.getElementById('chatBadge');
   if (badge) badge.style.display = 'none';
 }
-
-/* ════════════════════════════════════════════
-   TOGGLE CHAT
-════════════════════════════════════════════ */
 function toggleChat() {
   chatBox.classList.toggle('open');
   if (chatBox.classList.contains('open')) {
@@ -977,37 +858,25 @@ function toggleChat() {
 }
 
 /* ════════════════════════════════════════════
-   ADD MESSAGE
+   MESSAGES
 ════════════════════════════════════════════ */
 function addMsg(text, role) {
   const box = document.getElementById('chatMessages');
   const d = document.createElement('div');
   d.className = 'message ' + role;
-  d.innerHTML = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>');
+  d.innerHTML = String(text).replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br/>');
   box.appendChild(d);
   box.scrollTop = box.scrollHeight;
 }
-
-/* ════════════════════════════════════════════
-   SEND QUICK REPLY
-════════════════════════════════════════════ */
 function sendQuick(text) {
   chatInput.value = text;
   sendChatMessage();
 }
-
-/* ════════════════════════════════════════════
-   REQUEST HUMAN
-════════════════════════════════════════════ */
 function requestHuman() {
   if (mode !== 'ai') return;
   chatInput.value = 'I want to talk to a human';
   sendChatMessage();
 }
-
-/* ════════════════════════════════════════════
-   HANDLE KEY PRESS
-════════════════════════════════════════════ */
 function handleKeyPress(e) {
   if (e.key === 'Enter' && !chatInput.disabled) {
     e.preventDefault();
@@ -1016,19 +885,18 @@ function handleKeyPress(e) {
 }
 
 /* ════════════════════════════════════════════
-   SEND CHAT MESSAGE
+   SEND CHAT
 ════════════════════════════════════════════ */
 async function sendChatMessage() {
   const userText = chatInput.value.trim();
   if (!userText) return;
 
-  const sendBtn = document.getElementById('chatSendBtn');
   addMsg(userText, 'user');
   chatInput.value = '';
   chatInput.disabled = true;
-  sendBtn.disabled = true;
+  chatSendBtn.disabled = true;
 
-  // 1) Live / waiting / queued -> Forward to Slack thread
+  // Live / waiting / queued → forward to Slack
   if (mode === 'live' || mode === 'waiting' || mode === 'queued') {
     fetch(N8N_LIVE_URL, {
       method: 'POST',
@@ -1036,12 +904,12 @@ async function sendChatMessage() {
       body: JSON.stringify({ sessionId: chatSessionId, message: userText })
     }).catch(() => {});
     chatInput.disabled = false;
-    sendBtn.disabled = false;
+    chatSendBtn.disabled = false;
     chatInput.focus();
     return;
   }
 
-  // 2) Contact capture mode
+  // Contact capture mode
   if (mode === 'contact') {
     const email = (userText.match(/[^\s,;]+@[^\s,;]+\.[^\s,;]+/) || [''])[0];
     const name = userText.replace(email, '').replace(/[,;]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -1049,7 +917,7 @@ async function sendChatMessage() {
       addMsg("Please send both your name and email, for example: Ali Khan, ali@email.com", 'bot');
       addUnread();
       chatInput.disabled = false;
-      sendBtn.disabled = false;
+      chatSendBtn.disabled = false;
       chatInput.focus();
       return;
     }
@@ -1067,12 +935,12 @@ async function sendChatMessage() {
       addUnread();
     }
     chatInput.disabled = false;
-    sendBtn.disabled = false;
+    chatSendBtn.disabled = false;
     chatInput.focus();
     return;
   }
 
-  // 3) Normal AI conversation
+  // Normal AI conversation
   showTyping();
   const ctrl = new AbortController();
   const timeoutId = setTimeout(() => ctrl.abort(), 45000);
@@ -1108,7 +976,6 @@ async function sendChatMessage() {
       addMsg(replyText, 'bot');
       addUnread();
     }
-
   } catch (err) {
     clearTimeout(timeoutId);
     hideTyping();
@@ -1120,9 +987,8 @@ async function sendChatMessage() {
   }
 
   chatInput.disabled = false;
-  sendBtn.disabled = false;
+  chatSendBtn.disabled = false;
   chatInput.focus();
-  document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
 }
 
 /* ════════════════════════════════════════════
@@ -1151,18 +1017,13 @@ function scheduleContactFallback() {
 
 async function pollAgent() {
   try {
-    const res = await fetch(`${N8N_POLL_URL}?sessionId=${encodeURIComponent(chatSessionId)}&after=${lastPollTs}`, {
-      method: 'GET'
-    });
+    const res = await fetch(`${N8N_POLL_URL}?sessionId=${encodeURIComponent(chatSessionId)}&after=${lastPollTs}`);
     const data = await res.json();
-
     if (data.status === 'live' && mode === 'waiting') {
       setMode('live');
-      if (waitTimer) clearTimeout(waitTimer);
       addMsg('✅ A team member has joined the chat. You can now speak directly with our staff.', 'system');
       addUnread();
     }
-
     if (data.messages && data.messages.length > 0) {
       for (const msg of data.messages) {
         addMsg(msg.text || msg.message, 'bot');
@@ -1170,14 +1031,9 @@ async function pollAgent() {
       }
       lastPollTs = Date.now();
     }
-  } catch (e) {
-    // silent fail – keep polling
-  }
+  } catch (e) { /* keep polling */ }
 }
 
-/* ════════════════════════════════════════════
-   RESTORE HANDOFF
-════════════════════════════════════════════ */
 function restoreHandoff() {
   const savedMode = sessionStorage.getItem('lagusto_mode');
   const handoffTs = sessionStorage.getItem('lagusto_handoff_ts');
@@ -1195,9 +1051,6 @@ function restoreHandoff() {
   return false;
 }
 
-/* ════════════════════════════════════════════
-   INIT CHAT
-════════════════════════════════════════════ */
 (function initChat() {
   const restored = restoreHandoff();
   if (!restored) {
@@ -1221,53 +1074,63 @@ function restoreHandoff() {
   dateInput.min = `${yyyy}-${mm}-${dd}`;
 })();
 
+// Live slot status using the same booking webhook (action=check_slots)
 let slotCheckTimeout = null;
 function checkSlotAvailability() {
   const date = document.getElementById('reservDate').value;
   const time = document.getElementById('reservTime').value;
-  const party = document.getElementById('partySize').value;
   const slotEl = document.getElementById('slotStatus');
   if (!date || !time) { slotEl.textContent = ''; return; }
+
   if (slotCheckTimeout) clearTimeout(slotCheckTimeout);
   slotEl.textContent = 'Checking availability…';
   slotEl.className = 'slot-status slot-checking';
+
   slotCheckTimeout = setTimeout(async () => {
     try {
-      const res = await fetch(N8N_SLOT_CHECK_URL, {
+      const res = await fetch(N8N_BOOKING_WEBHOOK, {
         method: 'POST',
         headers: HEADERS_POST,
-        body: JSON.stringify({ date, time, party_size: party })
+        body: JSON.stringify({ action: 'check_slots', date })
       });
       const data = await res.json();
-      if (data.available) {
-        slotEl.textContent = '✓ Time slot available!';
-        slotEl.className = 'slot-status slot-available';
-      } else {
-        slotEl.textContent = '✗ This slot is fully booked. Please pick another time.';
-        slotEl.className = 'slot-status slot-busy';
+      if (data.timetable) {
+        const slot = data.timetable.find(s => s.time === time);
+        if (slot) {
+          if (slot.status === 'FULL') {
+            slotEl.textContent = '✗ This slot is fully booked.';
+            slotEl.className = 'slot-status slot-busy';
+          } else if (slot.status === 'LIMITED') {
+            slotEl.textContent = `⚠ Limited tables left (${slot.availableTables} remaining)`;
+            slotEl.className = 'slot-status slot-available';
+          } else {
+            slotEl.textContent = '✓ Time slot available!';
+            slotEl.className = 'slot-status slot-available';
+          }
+        }
       }
     } catch {
       slotEl.textContent = '';
       slotEl.className = 'slot-status';
     }
-  }, 800);
+  }, 600);
 }
 
 document.getElementById('reservDate').addEventListener('change', checkSlotAvailability);
 document.getElementById('reservTime').addEventListener('change', checkSlotAvailability);
-document.getElementById('partySize').addEventListener('change', checkSlotAvailability);
 
 document.getElementById('reservationForm').addEventListener('submit', async function(e) {
   e.preventDefault();
   const submitBtn = document.getElementById('submitBtn');
   const statusEl  = document.getElementById('bookingStatus');
-  const name    = document.getElementById('guestName').value.trim();
-  const email   = document.getElementById('guestEmail').value.trim();
-  const phone   = document.getElementById('guestPhone').value.trim();
-  const party   = document.getElementById('partySize').value;
-  const date    = document.getElementById('reservDate').value;
-  const time    = document.getElementById('reservTime').value;
-  const special = document.getElementById('specialReq').value.trim();
+
+  const guestName     = document.getElementById('guestName').value.trim();
+  const email         = document.getElementById('guestEmail').value.trim();
+  const phone         = document.getElementById('guestPhone').value.trim();
+  const partySize     = document.getElementById('partySize').value;
+  const date          = document.getElementById('reservDate').value;
+  const time          = document.getElementById('reservTime').value;
+  const privateBooking = document.getElementById('privateBooking').checked;
 
   submitBtn.disabled = true;
   submitBtn.textContent = '⏳ Processing…';
@@ -1278,23 +1141,40 @@ document.getElementById('reservationForm').addEventListener('submit', async func
     const res = await fetch(N8N_BOOKING_WEBHOOK, {
       method: 'POST',
       headers: HEADERS_POST,
-      body: JSON.stringify({ name, email, phone, party_size: party, date, time, special_requests: special, sessionId: chatSessionId })
+      body: JSON.stringify({
+        action: 'book_table',
+        guestName,
+        email,
+        phone,
+        partySize: parseInt(partySize, 10),
+        date,
+        time,
+        privateBooking
+      })
     });
 
-    let data;
-    try { data = await res.json(); } catch { data = {}; }
+    const data = await res.json();
 
-    if (res.ok && (data.success !== false)) {
-      const ticketNum = data.ticket_number || data.ticketNumber || ('LG-' + Math.random().toString(36).toUpperCase().slice(2, 8));
-      showTicket({ name, email, date, time, party, ticketNum });
-      statusEl.textContent = 'Reservation confirmed! Check your email for a copy.';
+    if (data.success && data.ticket) {
+      const t = data.ticket;
+      showTicket({
+        name: t.guestName || guestName,
+        email: t.email || email,
+        date: t.date || date,
+        time: t.time || time,
+        party: t.partySize || partySize,
+        ticketNum: t.ticketNumber,
+        bookingType: t.bookingType || (privateBooking ? 'Exclusive Private Table' : 'Standard Shared Seating'),
+        assignedTable: t.assignedTable || '—'
+      });
+      statusEl.textContent = 'Reservation confirmed! Check your email for the PDF ticket.';
       statusEl.className = 'success';
       statusEl.style.display = 'block';
     } else {
-      throw new Error(data.message || 'Booking failed');
+      throw new Error(data.message || 'Booking failed – slot may be full');
     }
   } catch (err) {
-    statusEl.textContent = 'Sorry, we could not process your reservation. Please call us at +1 (555) 123-4567 or try again.';
+    statusEl.textContent = err.message || 'Sorry, we could not process your reservation. Please try again or call us.';
     statusEl.className = 'error';
     statusEl.style.display = 'block';
     submitBtn.disabled = false;
@@ -1303,14 +1183,16 @@ document.getElementById('reservationForm').addEventListener('submit', async func
 });
 
 /* ════════════════════════════════════════════
-   TICKET DISPLAY & QR
+   TICKET
 ════════════════════════════════════════════ */
-function showTicket({ name, email, date, time, party, ticketNum }) {
+function showTicket({ name, email, date, time, party, ticketNum, bookingType, assignedTable }) {
   document.getElementById('tkName').textContent   = name;
   document.getElementById('tkEmail').textContent  = email;
   document.getElementById('tkDate').textContent   = new Date(date + 'T12:00:00').toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-  document.getElementById('tkTime').textContent   = formatTime(time);
-  document.getElementById('tkParty').textContent  = party + (party === '1' ? ' guest' : ' guests');
+  document.getElementById('tkTime').textContent   = time;
+  document.getElementById('tkParty').textContent  = party + (String(party) === '1' ? ' guest' : ' guests');
+  document.getElementById('tkType').textContent   = bookingType || 'Standard Shared Seating';
+  document.getElementById('tkTable').textContent  = assignedTable || '—';
   document.getElementById('tkNumber').textContent = ticketNum;
 
   const qrContainer = document.getElementById('ticketQR');
@@ -1331,14 +1213,6 @@ function showTicket({ name, email, date, time, party, ticketNum }) {
   document.getElementById('bookingSection').style.display = 'none';
   document.getElementById('ticketSection').style.display  = 'block';
   document.getElementById('ticketSection').scrollIntoView({ behavior: 'smooth' });
-}
-
-function formatTime(t) {
-  if (!t) return '';
-  const [h, m] = t.split(':').map(Number);
-  const ampm = h >= 12 ? 'PM' : 'AM';
-  const hour = h % 12 || 12;
-  return `${hour}:${String(m).padStart(2,'0')} ${ampm}`;
 }
 
 function makeNewReservation() {
