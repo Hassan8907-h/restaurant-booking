@@ -31,7 +31,7 @@
     .btn-nav { background: var(--primary); color: #000; padding: 0.6rem 1.4rem; border-radius: 4px; text-decoration: none; font-weight: 600; }
     .hero {
       height: 70vh;
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
                   url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
       display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 0 1rem;
     }
@@ -81,6 +81,8 @@
     .ticket-row span:first-child { font-weight: bold; color: #333; }
     .ticket-footer { margin-top: 1.2rem; text-align: center; border-top: 2px dashed #111; padding-top: 1rem; }
     #qrcode { display: flex; justify-content: center; margin: 0.5rem 0; }
+
+    /* ---------- Chat widget ---------- */
     .chat-widget-btn {
       position: fixed; bottom: 25px; right: 25px; width: 60px; height: 60px;
       background-color: var(--primary); color: #000; border-radius: 50%;
@@ -97,16 +99,30 @@
     }
     .chat-box.open { display: flex; }
     .chat-header {
-      background: #181818; padding: 1rem; border-bottom: 1px solid #2a2a2a;
-      display: flex; justify-content: space-between; align-items: center;
+      background: #181818; padding: 0.8rem 1rem; border-bottom: 1px solid #2a2a2a;
+      display: flex; justify-content: space-between; align-items: center; gap: 0.5rem;
     }
-    .chat-header h4 { font-family: 'Playfair Display', serif; color: var(--primary); }
+    .chat-title { display: flex; flex-direction: column; min-width: 0; }
+    .chat-header h4 { font-family: 'Playfair Display', serif; color: var(--primary); line-height: 1.2; }
+    .chat-status { font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.35rem; }
+    .chat-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--primary); }
+    .chat-status.waiting::before { background: #f39c12; }
+    .chat-status.live::before { background: var(--success); }
+    .chat-header-actions { display: flex; align-items: center; gap: 0.75rem; }
+    .human-btn {
+      background: transparent; color: var(--primary); border: 1px solid var(--primary);
+      border-radius: 4px; padding: 0.25rem 0.55rem; font-size: 0.72rem; cursor: pointer; font-family: inherit;
+    }
+    .human-btn:hover { background: var(--primary); color: #000; }
+    .human-btn[hidden] { display: none; }
     .close-chat { cursor: pointer; color: var(--text-muted); font-size: 1.2rem; }
     .chat-messages {
       flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 0.75rem;
     }
     .message { max-width: 85%; padding: 0.6rem 0.9rem; border-radius: 6px; font-size: 0.9rem; line-height: 1.4; word-wrap: break-word; white-space: pre-line; }
     .message.bot { background: #2a2a2a; color: var(--text-light); align-self: flex-start; border-left: 3px solid var(--primary); }
+    .message.agent { background: #1f3a2b; color: var(--text-light); align-self: flex-start; border-left: 3px solid var(--success); }
+    .message.system { background: transparent; color: var(--text-muted); align-self: center; font-size: 0.78rem; text-align: center; max-width: 95%; }
     .message.user { background: var(--primary); color: #000; align-self: flex-end; font-weight: 500; }
     .chat-input-area {
       display: flex; padding: 0.75rem; background: #181818; border-top: 1px solid #2a2a2a;
@@ -204,7 +220,7 @@
       <div class="ticket-body">
         <div class="ticket-row"><span>Ticket ID:</span><span id="t_ticketNum" style="font-weight: bold; color: var(--primary);"></span></div>
         <div class="ticket-row"><span>Table Number:</span><span id="t_tableId" style="font-weight: bold; color: #d4af37;"></span></div>
-        <div class="ticket-row"><span>Booking Type:</span><span id="t_bookingtype" style="font-weight: bold; color: #d4af37;"></span></div>        
+        <div class="ticket-row"><span>Booking Type:</span><span id="t_bookingtype" style="font-weight: bold; color: #d4af37;"></span></div>
         <div class="ticket-row"><span>Guest:</span><span id="t_name"></span></div>
         <div class="ticket-row"><span>Phone:</span><span id="t_phone"></span></div>
         <div class="ticket-row"><span>Email:</span><span id="t_email"></span></div>
@@ -225,8 +241,14 @@
   <div class="chat-widget-btn no-print" onclick="toggleChat()">💬</div>
   <div class="chat-box no-print" id="chatBox">
     <div class="chat-header">
-      <h4>La Gusto AI Host</h4>
-      <span class="close-chat" onclick="toggleChat()">✖</span>
+      <div class="chat-title">
+        <h4 id="chatTitle">La Gusto AI Host</h4>
+        <span class="chat-status" id="chatStatus">Online</span>
+      </div>
+      <div class="chat-header-actions">
+        <button class="human-btn" id="humanBtn" onclick="requestHuman()">Talk to a human</button>
+        <span class="close-chat" onclick="toggleChat()">✖</span>
+      </div>
     </div>
     <div class="chat-messages" id="chatMessages">
       <div class="message bot">Welcome to La Gusto! How can I assist you with your reservation, menu, or restaurant policies today?</div>
@@ -238,15 +260,29 @@
   </div>
 
   <script>
-    const N8N_WEBHOOK_URL = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/new-reservation";
-    const N8N_CHAT_WEBHOOK_URL = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/las-gusto-chat";
+    /* ===================== CONFIG ===================== */
+    // Production webhook base (workflow must be ACTIVE). Keep the trailing slash.
+    const BASE = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/";
+    const N8N_WEBHOOK_URL = BASE + "new-reservation";
+    const N8N_CHAT_WEBHOOK_URL = BASE + "las-gusto-chat";
+    const N8N_LIVE_URL = BASE + "las-gusto-live";
+    const N8N_POLL_URL = BASE + "las-gusto-poll";
+    const N8N_LEAD_URL = BASE + "las-gusto-lead";
 
+    const HEADERS_POST = { "Content-Type": "application/json", "ngrok-skip-browser-warning": "true" };
+    const HEADERS_GET = { "ngrok-skip-browser-warning": "true" };
+
+    const WAIT_FOR_AGENT_MS = 90000;   // how long to wait before asking for name + email
+    const POLL_EVERY_MS = 3000;        // how often to check for agent replies
+
+    /* ===================== SESSION ===================== */
     let chatSessionId = sessionStorage.getItem("laGustoSessionId");
     if (!chatSessionId) {
       chatSessionId = "lg_session_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
       sessionStorage.setItem("laGustoSessionId", chatSessionId);
     }
 
+    /* ===================== RESERVATION FORM ===================== */
     const dateInput = document.getElementById("date");
     const partyInput = document.getElementById("partySize");
     const privateCheckbox = document.getElementById("privateTable");
@@ -268,7 +304,7 @@
       try {
         const res = await fetch(N8N_WEBHOOK_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/json", "ngrok-skip-browser-warning": "true" },
+          headers: HEADERS_POST,
           body: JSON.stringify({ action: "check_slots", date: selectedDate, partySize: parseInt(partySize, 10), privateBooking: isPrivate })
         });
         const data = await res.json();
@@ -308,7 +344,7 @@
       try {
         const res = await fetch(N8N_WEBHOOK_URL, {
           method: "POST",
-          headers: { "Content-Type": "application/json", "ngrok-skip-browser-warning": "true" },
+          headers: HEADERS_POST,
           body: JSON.stringify({
             action: "book_table",
             guestName: document.getElementById("guestName").value,
@@ -359,8 +395,24 @@
       responseBanner.className = `response-banner ${type}`;
     }
 
+    /* ===================== CHAT + LIVE HANDOFF ===================== */
+    // mode: "ai"      -> talking to the AI host
+    //       "waiting" -> asked for a human, waiting for an agent to reply in Slack
+    //       "contact" -> nobody answered in time, asking for name + email
+    //       "queued"  -> contact details sent, still listening in case an agent joins
+    //       "live"    -> connected to a human agent
+    let mode = "ai";
+    let lastId = 0;
+    let pollTimer = null;
+    let waitTimer = null;
+
+    const chatBox = document.getElementById("chatBox");
+    const chatInput = document.getElementById("chatInput");
+    const chatStatus = document.getElementById("chatStatus");
+    const chatTitle = document.getElementById("chatTitle");
+    const humanBtn = document.getElementById("humanBtn");
+
     function toggleChat() {
-      const chatBox = document.getElementById("chatBox");
       chatBox.classList.toggle("open");
     }
 
@@ -368,60 +420,194 @@
       if (e.key === "Enter") sendChatMessage();
     }
 
-    async function sendChatMessage() {
-      const input = document.getElementById("chatInput");
-      const messagesContainer = document.getElementById("chatMessages");
-      const userText = input.value.trim();
-      if (!userText) return;
+    function addMsg(text, who) {
+      const box = document.getElementById("chatMessages");
+      const d = document.createElement("div");
+      d.className = "message " + who;
+      d.innerText = text;
+      box.appendChild(d);
+      box.scrollTop = box.scrollHeight;
+      return d;
+    }
 
-      const userMsgDiv = document.createElement("div");
-      userMsgDiv.className = "message user";
-      userMsgDiv.innerText = userText;
-      messagesContainer.appendChild(userMsgDiv);
-      input.value = "";
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    function isPending() {
+      return mode === "waiting" || mode === "contact" || mode === "queued";
+    }
 
-      const botMsgDiv = document.createElement("div");
-      botMsgDiv.className = "message bot";
-      botMsgDiv.innerText = "Thinking...";
-      messagesContainer.appendChild(botMsgDiv);
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    function setMode(next) {
+      mode = next;
+      chatStatus.className = "chat-status";
+      humanBtn.hidden = next !== "ai";
+      if (next === "ai") {
+        chatTitle.innerText = "La Gusto AI Host";
+        chatStatus.innerText = "Online";
+        chatInput.placeholder = "Ask about menu, rules, hours...";
+      } else if (next === "waiting") {
+        chatTitle.innerText = "Connecting you to our team";
+        chatStatus.innerText = "Waiting for a team member…";
+        chatStatus.classList.add("waiting");
+        chatInput.placeholder = "Type here while you wait...";
+      } else if (next === "contact") {
+        chatTitle.innerText = "Leave your contact details";
+        chatStatus.innerText = "Our team is busy";
+        chatStatus.classList.add("waiting");
+        chatInput.placeholder = "Your name, your email";
+      } else if (next === "queued") {
+        chatTitle.innerText = "We will email you";
+        chatStatus.innerText = "Request saved";
+        chatStatus.classList.add("waiting");
+        chatInput.placeholder = "Add a message for our team...";
+      } else if (next === "live") {
+        chatTitle.innerText = "La Gusto Team";
+        chatStatus.innerText = "Live with a team member";
+        chatStatus.classList.add("live");
+        chatInput.placeholder = "Message our team...";
+      }
+    }
 
+    function startPolling() {
+      if (pollTimer) return;
+      pollTimer = setInterval(pollAgent, POLL_EVERY_MS);
+    }
+
+    function stopPolling() {
+      clearInterval(pollTimer);
+      pollTimer = null;
+      clearTimeout(waitTimer);
+      waitTimer = null;
+    }
+
+    function scheduleContactFallback(delayMs) {
+      clearTimeout(waitTimer);
+      waitTimer = setTimeout(() => {
+        if (mode === "waiting") {
+          setMode("contact");
+          addMsg("Sorry, all our team members are busy right now. Please type your name and email (for example: Ali Khan, ali@email.com) and we will contact you as soon as possible.", "bot");
+        }
+      }, Math.max(delayMs, 0));
+    }
+
+    function startHandoff() {
+      sessionStorage.setItem("laGustoHandoffAt", String(Date.now()));
+      setMode("waiting");
+      startPolling();
+      scheduleContactFallback(WAIT_FOR_AGENT_MS);
+    }
+
+    async function pollAgent() {
       try {
-        const res = await fetch(N8N_CHAT_WEBHOOK_URL, {
-          method: "POST",
-          headers: { 
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "true" 
-          },
-          body: JSON.stringify({ 
-            message: userText,
-            sessionId: chatSessionId 
-          })
-        });
+        const r = await fetch(`${N8N_POLL_URL}?sessionId=${encodeURIComponent(chatSessionId)}&after=${lastId}`, { headers: HEADERS_GET });
+        const data = await r.json();
 
-        const data = await res.json();
-
-        let replyText = "";
-        if (typeof data === "string") {
-          replyText = data;
-        } else if (data.response_text) {
-          replyText = data.response_text;
-        } else if (data.output) {
-          replyText = data.output;
-        } else if (data.message) {
-          replyText = data.message;
-        } else if (Array.isArray(data) && data[0]) {
-          replyText = data[0].response_text || data[0].output || data[0].text || JSON.stringify(data[0]);
-        } else {
-          replyText = "Thank you for your message. How else can I help you today?";
+        if (data.status === "live" && isPending()) {
+          setMode("live");
+          clearTimeout(waitTimer);
+          addMsg("A team member has joined the chat.", "system");
         }
 
-        botMsgDiv.innerText = replyText;
-      } catch (err) {
-        botMsgDiv.innerText = "Sorry, I am having trouble connecting to the host agent right now. Please try again in a moment.";
+        (data.messages || []).forEach(m => {
+          lastId = Math.max(lastId, Number(m.id));
+          if (m.sender === "system") addMsg(m.text, "system");
+          else addMsg(m.text, "agent");
+        });
+
+        if (data.status === "closed" && mode === "live") {
+          stopPolling();
+          sessionStorage.removeItem("laGustoHandoffAt");
+          setMode("ai");
+          addMsg("The chat with our team has ended. I'm your AI host again. How can I help?", "bot");
+        }
+      } catch (e) { /* ignore network hiccups, next poll will retry */ }
+    }
+
+    // Restore the handoff state if the guest refreshes the page during a live chat
+    async function restoreHandoff() {
+      try {
+        const r = await fetch(`${N8N_POLL_URL}?sessionId=${encodeURIComponent(chatSessionId)}&after=0`, { headers: HEADERS_GET });
+        const data = await r.json();
+        const ids = (data.messages || []).map(m => Number(m.id));
+        if (ids.length) lastId = Math.max(...ids);
+        if (data.status === "live") {
+          setMode("live");
+          addMsg("You are still connected with our team.", "system");
+          startPolling();
+        } else if (data.status === "waiting") {
+          const startedAt = Number(sessionStorage.getItem("laGustoHandoffAt") || 0);
+          const left = WAIT_FOR_AGENT_MS - (Date.now() - startedAt);
+          if (startedAt && left > 0) {
+            setMode("waiting");
+            startPolling();
+            scheduleContactFallback(left);
+            addMsg("Please wait, we are still connecting you with a team member…", "system");
+          }
+        }
+      } catch (e) { /* offline or workflow inactive: stay in AI mode */ }
+    }
+    restoreHandoff();
+
+    function requestHuman() {
+      if (mode !== "ai") return;
+      chatInput.value = "I want to talk to a human";
+      sendChatMessage();
+    }
+
+    async function sendChatMessage() {
+      const userText = chatInput.value.trim();
+      if (!userText) return;
+      addMsg(userText, "user");
+      chatInput.value = "";
+
+      // 1) Live or waiting or queued: forward the message to the Slack thread
+      if (mode === "live" || mode === "waiting" || mode === "queued") {
+        fetch(N8N_LIVE_URL, {
+          method: "POST", headers: HEADERS_POST,
+          body: JSON.stringify({ sessionId: chatSessionId, message: userText })
+        }).catch(() => {});
+        return;
       }
-      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+      // 2) Nobody answered: collect name + email
+      if (mode === "contact") {
+        const email = (userText.match(/[^\s,;]+@[^\s,;]+\.[^\s,;]+/) || [""])[0];
+        const name = userText.replace(email, "").replace(/[,;]/g, " ").replace(/\s+/g, " ").trim();
+        if (!email || !name) {
+          addMsg("Please send both your name and email, for example: Ali Khan, ali@email.com", "bot");
+          return;
+        }
+        try {
+          await fetch(N8N_LEAD_URL, {
+            method: "POST", headers: HEADERS_POST,
+            body: JSON.stringify({ sessionId: chatSessionId, name, email })
+          });
+          addMsg(`Thank you ${name}! Our team will email you at ${email} as soon as someone is available. If a team member becomes free now, they can still join this chat.`, "bot");
+          setMode("queued");
+        } catch (err) {
+          addMsg("Sorry, we could not save your details. Please try again.", "bot");
+        }
+        return;
+      }
+
+      // 3) Normal AI conversation
+      const bot = addMsg("Thinking...", "bot");
+      try {
+        const res = await fetch(N8N_CHAT_WEBHOOK_URL, {
+          method: "POST", headers: HEADERS_POST,
+          body: JSON.stringify({ message: userText, sessionId: chatSessionId })
+        });
+        const data = await res.json();
+        let replyText = "";
+        if (typeof data === "string") replyText = data;
+        else if (data.response_text) replyText = data.response_text;
+        else if (data.output) replyText = data.output;
+        else if (data.message) replyText = data.message;
+        else if (Array.isArray(data) && data[0]) replyText = data[0].response_text || data[0].output || data[0].text || JSON.stringify(data[0]);
+        else replyText = "Thank you for your message. How else can I help you today?";
+        bot.innerText = replyText;
+        if (data.handoff === "waiting") startHandoff();
+      } catch (err) {
+        bot.innerText = "Sorry, I am having trouble connecting to the host agent right now. Please try again in a moment.";
+      }
+      document.getElementById("chatMessages").scrollTop = document.getElementById("chatMessages").scrollHeight;
     }
   </script>
 </body>
