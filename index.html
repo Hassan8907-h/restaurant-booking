@@ -274,6 +274,13 @@
     const N8N_WEBHOOK_URL = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/new-reservation";
     const N8N_CHAT_WEBHOOK_URL = "https://underrate-ranting-unbutton.ngrok-free.dev/webhook/las-gusto-chat";
 
+    // Initialize or Retrieve Persistent Browser Session ID for Memory Tracking
+    let chatSessionId = sessionStorage.getItem("laGustoSessionId");
+    if (!chatSessionId) {
+      chatSessionId = "lg_session_" + Date.now() + "_" + Math.floor(Math.random() * 10000);
+      sessionStorage.setItem("laGustoSessionId", chatSessionId);
+    }
+
     const dateInput = document.getElementById("date");
     const partyInput = document.getElementById("partySize");
     const privateCheckbox = document.getElementById("privateTable");
@@ -396,7 +403,7 @@
       responseBanner.className = `response-banner ${type}`;
     }
 
-    /* AI Chat Widget Functions */
+    /* AI Chat Widget Functions with Persistent Session Tracking */
     function toggleChat() {
       const chatBox = document.getElementById("chatBox");
       chatBox.classList.toggle("open");
@@ -435,7 +442,10 @@
             "Content-Type": "application/json",
             "ngrok-skip-browser-warning": "true" 
           },
-          body: JSON.stringify({ message: userText })
+          body: JSON.stringify({ 
+            message: userText,
+            sessionId: chatSessionId // Pass sessionId for n8n memory persistence
+          })
         });
 
         const data = await res.json();
