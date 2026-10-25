@@ -341,7 +341,6 @@
     .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.6; } 30% { transform: translateY(-8px); opacity: 1; } }
 
-    /* Fixed right side button position */
     .chat-widget-btn {
       position: fixed;
       bottom: 25px;
@@ -381,7 +380,6 @@
 
     .chat-input-area button:disabled { background: #888; cursor: not-allowed; }
 
-    /* Chat box position fixed to bottom-right */
     .chat-box {
       position: fixed;
       bottom: 95px;
@@ -874,7 +872,7 @@
 
 <script>
 /* ════════════════════════════════════════════
-   CONFIG (Updated Production Webhook URLs)
+   CONFIG (Updated Production Webhook URLs matching exact workflow paths)
 ════════════════════════════════════════════ */
 const N8N_CHAT_WEBHOOK_URL  = 'https://primary-production-4674.up.railway.app/webhook/las-gusto-chat';
 const N8N_LIVE_URL           = 'https://primary-production-4674.up.railway.app/webhook/las-gusto-live';
@@ -1018,7 +1016,7 @@ function handleKeyPress(e) {
 }
 
 /* ════════════════════════════════════════════
-   SEND CHAT MESSAGE (Main Execution)
+   SEND CHAT MESSAGE
 ════════════════════════════════════════════ */
 async function sendChatMessage() {
   const userText = chatInput.value.trim();
@@ -1148,15 +1146,13 @@ function scheduleContactFallback() {
       setMode('contact');
       if (pollTimer) { clearInterval(pollTimer); pollTimer = null; }
     }
-  }, 180000); // 3 minutes
+  }, 180000);
 }
 
 async function pollAgent() {
   try {
-    const res = await fetch(N8N_POLL_URL, {
-      method: 'POST',
-      headers: HEADERS_POST,
-      body: JSON.stringify({ sessionId: chatSessionId, since: lastPollTs })
+    const res = await fetch(`${N8N_POLL_URL}?sessionId=${encodeURIComponent(chatSessionId)}&after=${lastPollTs}`, {
+      method: 'GET'
     });
     const data = await res.json();
 
@@ -1169,7 +1165,7 @@ async function pollAgent() {
 
     if (data.messages && data.messages.length > 0) {
       for (const msg of data.messages) {
-        addMsg(msg.message, 'bot');
+        addMsg(msg.text || msg.message, 'bot');
         addUnread();
       }
       lastPollTs = Date.now();
@@ -1180,14 +1176,14 @@ async function pollAgent() {
 }
 
 /* ════════════════════════════════════════════
-   RESTORE HANDOFF ON PAGE LOAD
+   RESTORE HANDOFF
 ════════════════════════════════════════════ */
 function restoreHandoff() {
   const savedMode = sessionStorage.getItem('lagusto_mode');
   const handoffTs = sessionStorage.getItem('lagusto_handoff_ts');
   if ((savedMode === 'waiting' || savedMode === 'live') && handoffTs) {
     const elapsed = Date.now() - parseInt(handoffTs);
-    if (elapsed < 3600000) { // 1 hour
+    if (elapsed < 3600000) {
       lastPollTs = parseInt(handoffTs);
       setMode(savedMode);
       if (pollTimer) clearInterval(pollTimer);
