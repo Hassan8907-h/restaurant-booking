@@ -766,9 +766,9 @@
 
 <script>
 /* ════════════════════════════════════════════
-   CONFIG – REPLACE THESE WITH YOUR REAL PRODUCTION URLs
+   CONFIG – REPLACE WITH YOUR REAL n8n DOMAIN
 ════════════════════════════════════════════ */
-const BASE = 'https://underrate-ranting-unbutton.ngrok-free.dev'; // ← change to your n8n domain
+const BASE = 'https://YOUR-N8N-DOMAIN.com';   // ←←← CHANGE THIS ONLY
 
 const N8N_CHAT_WEBHOOK_URL = `${BASE}/webhook/las-gusto-chat`;
 const N8N_LIVE_URL         = `${BASE}/webhook/las-gusto-live`;
@@ -820,9 +820,6 @@ function setMode(m) {
   sessionStorage.setItem('lagusto_mode', m);
 }
 
-/* ════════════════════════════════════════════
-   TYPING / BADGE / TOGGLE
-════════════════════════════════════════════ */
 function showTyping() {
   const box = document.getElementById('chatMessages');
   if (document.getElementById('typingIndicator')) return;
@@ -857,9 +854,6 @@ function toggleChat() {
   }
 }
 
-/* ════════════════════════════════════════════
-   MESSAGES
-════════════════════════════════════════════ */
 function addMsg(text, role) {
   const box = document.getElementById('chatMessages');
   const d = document.createElement('div');
@@ -884,9 +878,6 @@ function handleKeyPress(e) {
   }
 }
 
-/* ════════════════════════════════════════════
-   SEND CHAT
-════════════════════════════════════════════ */
 async function sendChatMessage() {
   const userText = chatInput.value.trim();
   if (!userText) return;
@@ -896,7 +887,6 @@ async function sendChatMessage() {
   chatInput.disabled = true;
   chatSendBtn.disabled = true;
 
-  // Live / waiting / queued → forward to Slack
   if (mode === 'live' || mode === 'waiting' || mode === 'queued') {
     fetch(N8N_LIVE_URL, {
       method: 'POST',
@@ -909,7 +899,6 @@ async function sendChatMessage() {
     return;
   }
 
-  // Contact capture mode
   if (mode === 'contact') {
     const email = (userText.match(/[^\s,;]+@[^\s,;]+\.[^\s,;]+/) || [''])[0];
     const name = userText.replace(email, '').replace(/[,;]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -940,10 +929,9 @@ async function sendChatMessage() {
     return;
   }
 
-  // Normal AI conversation
   showTyping();
   const ctrl = new AbortController();
-  const timeoutId = setTimeout(() => ctrl.abort(), 45000);
+  const timeoutId = setTimeout(() => ctrl.abort(), 40000);
 
   try {
     const res = await fetch(N8N_CHAT_WEBHOOK_URL, {
@@ -981,7 +969,7 @@ async function sendChatMessage() {
     hideTyping();
     const errMsg = err.name === 'AbortError'
       ? 'The response is taking too long. Please try again.'
-      : "Sorry, I'm having trouble right now. Please try again or click 'Talk to a human'.";
+      : "Sorry, I'm having a temporary issue. Please try again or click 'Talk to a human'.";
     addMsg(errMsg, 'bot');
     addUnread();
   }
@@ -991,15 +979,12 @@ async function sendChatMessage() {
   chatInput.focus();
 }
 
-/* ════════════════════════════════════════════
-   HANDOFF / POLL
-════════════════════════════════════════════ */
 function startHandoff() {
   setMode('waiting');
   lastPollTs = Date.now();
   scheduleContactFallback();
   if (pollTimer) clearInterval(pollTimer);
-  pollTimer = setInterval(pollAgent, 5000);
+  pollTimer = setInterval(pollAgent, 4000);
   sessionStorage.setItem('lagusto_handoff_ts', String(Date.now()));
 }
 
@@ -1031,7 +1016,7 @@ async function pollAgent() {
       }
       lastPollTs = Date.now();
     }
-  } catch (e) { /* keep polling */ }
+  } catch (e) {}
 }
 
 function restoreHandoff() {
@@ -1043,7 +1028,7 @@ function restoreHandoff() {
       lastPollTs = parseInt(handoffTs);
       setMode(savedMode);
       if (pollTimer) clearInterval(pollTimer);
-      pollTimer = setInterval(pollAgent, 5000);
+      pollTimer = setInterval(pollAgent, 4000);
       if (savedMode === 'waiting') scheduleContactFallback();
       return true;
     }
@@ -1074,7 +1059,6 @@ function restoreHandoff() {
   dateInput.min = `${yyyy}-${mm}-${dd}`;
 })();
 
-// Live slot status using the same booking webhook (action=check_slots)
 let slotCheckTimeout = null;
 function checkSlotAvailability() {
   const date = document.getElementById('reservDate').value;
@@ -1182,9 +1166,6 @@ document.getElementById('reservationForm').addEventListener('submit', async func
   }
 });
 
-/* ════════════════════════════════════════════
-   TICKET
-════════════════════════════════════════════ */
 function showTicket({ name, email, date, time, party, ticketNum, bookingType, assignedTable }) {
   document.getElementById('tkName').textContent   = name;
   document.getElementById('tkEmail').textContent  = email;
